@@ -16,6 +16,8 @@ import Classes from './Classes.jsx'
 import StudentDashboard from './Dashboard/StudentDashboard.jsx'
 import AuthProvider from './authentication/AuthProvider.jsx'
 import { Scrollbars } from 'rc-scrollbars';
+import PrivateRoute from './authentication/PrivateRoute.jsx'
+import Dashboard from './Dashboard/Dashboard.jsx'
 
 const router = createBrowserRouter([
   {
@@ -36,7 +38,7 @@ const router = createBrowserRouter([
       },
       {
         path : 'dashboard' ,
-        element : <StudentDashboard/>
+        element : <PrivateRoute><Dashboard/></PrivateRoute>
       },
       {
         path : '/register' ,

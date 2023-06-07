@@ -57,7 +57,10 @@ export default function Navbar(){
                 
                 <NavLink to={'/instructors'}>Instructors</NavLink>
                 <NavLink to={'/classes'}>Classes</NavLink>
-                <NavLink to={'/dashboard'}>Dashboard</NavLink>
+
+                {user && 
+                    <NavLink to={'/dashboard'}>Dashboard</NavLink>
+                }
                 
 
             </ul>
