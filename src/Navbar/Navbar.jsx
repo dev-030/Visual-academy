@@ -56,8 +56,10 @@ export default function Navbar(){
                 
                 
                 <NavLink to={'/instructors'}>Instructors</NavLink>
-                <li>Classes</li>
-                <li>Dashboard</li>
+                <NavLink to={'/classes'}>Classes</NavLink>
+                <NavLink to={'/dashboard'}>Dashboard</NavLink>
+                
+
             </ul>
         </div>
         <div className="navbar-end">
@@ -87,25 +89,28 @@ export default function Navbar(){
          
 
           {user&& 
+          <div>
            
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                 <div className="w-10 rounded-full">
                 <img src="https://i.ibb.co/LxV7GQ6/vector-users-icon.jpg" />
                 </div>
             </label>
+            <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+            <li>
+            <a className="justify-between">
+                Profile
+                <span className="badge">New</span>
+            </a>
+            </li>
+            <li><a>Settings</a></li>
+            <li><a onClick={logout}>Logout</a></li>
+        </ul>
+        </div>
             }
 
 
-            <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                <li>
-                <a className="justify-between">
-                    Profile
-                    <span className="badge">New</span>
-                </a>
-                </li>
-                <li><a>Settings</a></li>
-                <li><a onClick={logout}>Logout</a></li>
-            </ul>
+            
 
             </div>
         </div>
