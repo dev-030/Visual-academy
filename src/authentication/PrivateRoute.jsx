@@ -14,7 +14,7 @@ export default function PrivateRoute({children}) {
 
     const {user,loading} = useContext(authContext);
 
-    console.log(user)
+    
 
     if(!loading){
 

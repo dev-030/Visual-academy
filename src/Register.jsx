@@ -5,7 +5,7 @@ import { authContext } from "./authentication/AuthProvider"
 import { useForm } from "react-hook-form";
 
 import { AiOutlineInfoCircle } from 'react-icons/ai';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 
@@ -16,14 +16,31 @@ import { Link } from "react-router-dom";
 
 export default function Register(){
 
+
+  const navigate = useNavigate();
+
   const {userRegister} = useContext(authContext);
 
   const { register, handleSubmit, watch, getValues,formState: { errors } } = useForm();
   
   const onSubmit = (data) => {
-        console.log(data)
 
-        userRegister(data.email , data.password).then(data => console.log(data))
+    console.log(data)
+
+    userRegister(data.email , data.password).then(()=>{
+      fetch('http://localhost:8080/user', {
+        method : 'POST',
+        headers : {
+          'content-type' : 'application/json'
+        },
+        body : JSON.stringify({name:data.name , email:data.email , image:data.photo_url})
+      }).then(data => data.json()).then(data => console.log(data))
+      
+      navigate('/')
+    })
+
+
+
 
   }
 

@@ -22,6 +22,14 @@ import Enrolledclasses from './student/EnrolledClasses.jsx'
 import SelectedClasses from './student/SelectedClasses.jsx'
 import Payments from './student/Payments.jsx'
 
+
+import {
+  QueryClient,
+  QueryClientProvider,
+} from 'react-query'
+
+const queryClient = new QueryClient()
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -76,10 +84,11 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Scrollbars style={{ width:'100%', height: '100vh' }} autoHide>
-          <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
-      </Scrollbars>
-
-  </React.StrictMode>,
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <RouterProvider router={router} />
+        </AuthProvider>
+      </QueryClientProvider>
+    </Scrollbars>
+  </React.StrictMode>
 )
