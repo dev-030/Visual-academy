@@ -18,6 +18,9 @@ import AuthProvider from './authentication/AuthProvider.jsx'
 import { Scrollbars } from 'rc-scrollbars';
 import PrivateRoute from './authentication/PrivateRoute.jsx'
 import Dashboard from './Dashboard/Dashboard.jsx'
+import Enrolledclasses from './student/EnrolledClasses.jsx'
+import SelectedClasses from './student/SelectedClasses.jsx'
+import Payments from './student/Payments.jsx'
 
 const router = createBrowserRouter([
   {
@@ -38,7 +41,21 @@ const router = createBrowserRouter([
       },
       {
         path : 'dashboard' ,
-        element : <PrivateRoute><Dashboard/></PrivateRoute>
+        element : <PrivateRoute><Dashboard/></PrivateRoute>,
+        children : [
+          {
+            path:'/dashboard/enrolledclasses',
+            element : <Enrolledclasses/>
+          },
+          {
+            path : '/dashboard/selectedclasses',
+            element: <SelectedClasses/>
+          },
+          {
+            path : '/dashboard/payments',
+            element: <Payments/>
+          }
+        ]
       },
       {
         path : '/register' ,
@@ -58,7 +75,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Scrollbars style={{ width:'100%', height: '100vh' }}>
+    <Scrollbars style={{ width:'100%', height: '100vh' }} autoHide>
           <AuthProvider>
       <RouterProvider router={router} />
     </AuthProvider>

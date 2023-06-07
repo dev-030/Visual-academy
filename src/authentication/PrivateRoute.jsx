@@ -12,15 +12,21 @@ import { Navigate } from "react-router-dom";
 
 export default function PrivateRoute({children}) {
 
-    const {user} = useContext(authContext);
+    const {user,loading} = useContext(authContext);
 
     console.log(user)
 
-    if(user){
-        return children;
-    }else{
-        return <Navigate to={'/login'}/>
+    if(!loading){
+
+        if(user){
+            return children;
+        }else{
+            return <Navigate to={'/login'}/>
+        }
+
     }
+
+
 
     
 }
