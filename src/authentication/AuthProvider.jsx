@@ -41,9 +41,7 @@ export default function AuthProvider({children}){
             setLoading(false)
             if(user){
                 axios.post('http://localhost:8080/jwt' , {email:user.email}).then((data) => {
-                
                     localStorage.setItem('access-token',data.data.token)
-                    
                 })
             }
         })

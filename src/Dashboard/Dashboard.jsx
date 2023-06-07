@@ -13,7 +13,7 @@ export default function Dashboard(){
 
     const {user ,loading} = useContext(authContext);
     const [axiosSecure] = useAxiosSecure();
-    const [role,setRole] = useState(null);
+    
 
 
     const {data,isLoading} = useQuery({
@@ -55,8 +55,8 @@ export default function Dashboard(){
 
                     {!isLoading&& data?.data?.role == 'admin' &&
                         <div className="space-y-5 mt-5 text-center flex flex-col" id="dashboard">
-                            <NavLink to={'selectedclasses'} className="">Manage Classes</NavLink>
-                            <NavLink to={'enrolledclasses'} className="">Manage Users</NavLink>
+                            <NavLink to={'manageclasses'} className="">Manage Classes</NavLink>
+                            <NavLink to={'allusers'} className="">Manage Users</NavLink>
                         </div>
                     }
 
