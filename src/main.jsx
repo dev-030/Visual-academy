@@ -56,11 +56,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Scrollbars style={{ width:'100%', height: '100vh' }}>
-          <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
-      </Scrollbars>
+  
 
   </React.StrictMode>,
 )
