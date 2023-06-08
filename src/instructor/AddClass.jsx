@@ -4,6 +4,7 @@ import { authContext } from "../authentication/AuthProvider"
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import useAxiosSecure from "../useAxiosSecure";
+import Swal from "sweetalert2";
 
 
 
@@ -30,7 +31,15 @@ export default function AddClasses(){
                 data.classImage = res.data.data;
                 data.status = 'pending';
                 data.instructor = user.email;
-                axios.post(`${axiosSecure.defaults.baseURL}instructor/addclass` , data).then(data =>console.log(data))
+                data.ininstructorName = user?.displayName;
+
+                axios.post(`${axiosSecure.defaults.baseURL}instructor/addclass` , data).then(data =>{
+                    Swal.fire(
+                        'Add Request sent',
+                        '',
+                        'success'
+                      )
+                })
             }
             
         })
