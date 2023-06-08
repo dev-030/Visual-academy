@@ -1,5 +1,8 @@
 import { useQuery } from "react-query";
 import useAxiosSecure from "./useAxiosSecure"
+import axios from "axios";
+import { useContext } from "react";
+import { authContext } from "./authentication/AuthProvider";
 
 
 
@@ -15,8 +18,10 @@ export default function Classes () {
         }
     })
 
+    const {user} = useContext(authContext);
+
     const select = (data) => {
-        console.log(data)
+        axios.post(`${axiosSecure.defaults.baseURL}student/select/${user.email}&${data}`)
     }
 
     return(
