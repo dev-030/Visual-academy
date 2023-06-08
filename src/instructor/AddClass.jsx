@@ -18,10 +18,10 @@ export default function AddClasses(){
 
     const apiKey = '66d945b454fad2da099d17624012543e'
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit } = useForm();
 
     const onSubmit = data => {
-        
+
         const formdata = new FormData();
         formdata.append('image',data.classImage[0])
               
@@ -46,6 +46,7 @@ export default function AddClasses(){
 
     }
 
+   
 
     
 
@@ -58,18 +59,18 @@ export default function AddClasses(){
             <form className="grid" onSubmit={handleSubmit(onSubmit)}>
 
                 <div className="flex gap-5 mt-5 justify-center">
-                    <input type="text" {...register("className")} placeholder="Class Name" className="input input-bordered w-full max-w-xs" />
-                    <input type="text" {...register("availabeSeats")} placeholder="Available Seats" className="input input-bordered w-full max-w-xs" />
+                    <input type="text" {...register("className" , {required: true})} placeholder="Class Name" className="input input-bordered w-full max-w-xs" />
+                    <input type="number" {...register("availableSeats" , {valueAsNumber: true, required: true}) } placeholder="Available Seats" className="input input-bordered w-full max-w-xs" />
                 </div>
 
                 <div className="flex gap-5 mt-5 justify-center">
-                    <input type="text" {...register("instructorName")} placeholder="You can't touch this" defaultValue={user?.name} className="input input-bordered w-full max-w-xs" disabled />
-                    <input type="text" {...register("instructorEmail")} placeholder="You can't touch this" defaultValue={user?.email} className="input input-bordered w-full max-w-xs" disabled />
+                    <input type="text" {...register("instructorName" , {})} placeholder="You can't touch this" defaultValue={user?.displayName} className="input bg-green-100 w-full max-w-xs" readOnly/>
+                    <input type="text" {...register("instructorEmail")} placeholder="You can't touch this" defaultValue={user?.email} className="input bg-green-100 w-full max-w-xs" readOnly/>
                 </div>
 
                 <div className="flex gap-5 mt-5 justify-center">   
-                    <input type="text" {...register("price")} placeholder="Price" className="input input-bordered w-full max-w-xs" />
-                    <input type="file" {...register("classImage")} className="file-input file-input-bordered w-full max-w-xs" />
+                    <input type="number" {...register("price", {valueAsNumber: true, required: true})} placeholder="Price" className="input input-bordered w-full max-w-xs" />
+                    <input type="file" {...register("classImage", {required: true})} className="file-input file-input-bordered w-full max-w-xs" />
                 </div> 
 
            

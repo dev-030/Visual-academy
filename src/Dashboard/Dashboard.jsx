@@ -25,6 +25,9 @@ export default function Dashboard(){
         }
     })
 
+
+    
+
    
 
     
@@ -35,7 +38,7 @@ export default function Dashboard(){
 
                 <div className="avatar flex justify-center">
                     <div className="w-36 rounded-full">
-                        <img src="https://i.ibb.co/LxV7GQ6/vector-users-icon.jpg" />
+                        <img src={data?.data.image} />
                     </div>
                 </div>
 
@@ -73,9 +76,9 @@ export default function Dashboard(){
 
                     {!isLoading&& data?.data?.role != 'admin' && data?.data?.role != 'instructor' &&
                         <div className="space-y-5 mt-5 text-center flex flex-col" id="dashboard">
-                            <NavLink to={'selectedclasses'} className="">Selected Classes</NavLink>
+                            <NavLink to={'student/selectedclasses'} className="">Selected Classes</NavLink>
                             <NavLink to={'enrolledclasses'} className="">Enrolled Classes</NavLink>
-                            <NavLink to={'payments'} className="">Payments</NavLink>
+                            <NavLink to={'paymenthistory'} className="">Payments</NavLink>
                         </div>
                     }
 

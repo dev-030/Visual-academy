@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { Link, useNavigate } from "react-router-dom";
+import { updateProfile } from "firebase/auth";
+import useAxiosSecure from "./useAxiosSecure";
 
 
 
@@ -21,22 +23,24 @@ export default function Register(){
 
   const {userRegister} = useContext(authContext);
 
+  const [axiosSecure] = useAxiosSecure();
+
   const { register, handleSubmit, watch, getValues,formState: { errors } } = useForm();
   
   const onSubmit = (data) => {
 
-    console.log(data)
 
-    userRegister(data.email , data.password).then(()=>{
-      fetch('http://localhost:8080/user', {
-        method : 'POST',
-        headers : {
-          'content-type' : 'application/json'
-        },
-        body : JSON.stringify({name:data.name , email:data.email , image:data.photo_url})
-      }).then(data => data.json()).then(data => console.log(data))
-      
+    userRegister(data.email , data.password).then((userCredential)=>{
+
+      updateProfile(userCredential.user , {
+        displayName: data.name ,
+        photoURL: data.photo_url
+      })
+
+      axiosSecure.post('user' , {name:data.name , email:data.email , image:data.photo_url})
+
       navigate('/')
+      
     })
 
 
@@ -68,26 +72,22 @@ export default function Register(){
                 <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
                   <div className="form-control space-y-4">
 
-                    <input {...register("name", { maxLength: 20 })} type="text" placeholder="Name" className="input input-bordered w-full max-w-xs" />
+                    <input {...register("name", { maxLength: 20 , required: true })} type="text" placeholder="Name" className="input input-bordered w-full max-w-xs" />
 
-                    <input {...register("email", { pattern : /^[^\s@]+@[^\s@]+\.[^\s@]+$/})} type="text" placeholder="Email" className="input input-bordered w-full max-w-xs" />
+                    <input {...register("email", {required: true, pattern : /^[^\s@]+@[^\s@]+\.[^\s@]+$/})} type="text" placeholder="Email" className="input input-bordered w-full max-w-xs" />
 
                     {/* { pattern : /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{6,}$/ } */}
 
                     <div className="flex items-center">
-
-                    <input {...register("password")} placeholder="Password" className="input input-bordered w-full max-w-xs"/>
-
-                    <div className="tooltip tooltip-right" data-tip="Must Contain a number string">
-                    <AiOutlineInfoCircle size={20} />
-
-                    </div>
-
+                      <input {...register("password" , {required: true})} placeholder="Password" className="input input-bordered w-full max-w-xs"/>
+                      <div className="tooltip tooltip-right" data-tip="Must Contain a number string">
+                        <AiOutlineInfoCircle size={20} />
+                      </div>
                     </div>
 
 
 
-                    <input {...register("confirm_password", { 
+                    <input {...register("confirm_password", { required: true ,
                     
                         validate: (value) => value === watch("password") || "Passwords do not match"
                       
@@ -98,7 +98,7 @@ export default function Register(){
                         {errors.confirm_password?.message}
                       </p>
 
-                    <input  {...register("photo_url", { })} type="text" placeholder="Photo Url" className="input input-bordered w-full max-w-xs" />
+                    <input  {...register("photo_url", { required: true })} type="text" placeholder="Photo Url" className="input input-bordered w-full max-w-xs" />
 
                   </div>
 

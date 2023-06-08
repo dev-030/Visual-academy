@@ -31,6 +31,7 @@ import ManageUsers from './admin/ManageUsers.jsx'
 import ManageClasses from './admin/ManageClasses.jsx'
 import AddClasses from './instructor/AddClass.jsx'
 import MyClasses from './instructor/MyClasses.jsx'
+import PaymentHistory from './student/PaymentHistory.jsx'
 
 const queryClient = new QueryClient()
 
@@ -60,12 +61,16 @@ const router = createBrowserRouter([
             element : <Enrolledclasses/>
           },
           {
-            path : '/dashboard/selectedclasses',
+            path : '/dashboard/student/selectedclasses',
             element: <SelectedClasses/>
           },
           {
             path : '/dashboard/student/payment',
             element: <Payments/>
+          },
+          {
+            path : '/dashboard/paymenthistory',
+            element: <PaymentHistory/>
           },
           {
             path : '/dashboard/allusers',
