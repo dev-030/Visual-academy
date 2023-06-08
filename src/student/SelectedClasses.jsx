@@ -3,6 +3,7 @@ import useAxiosSecure from "../useAxiosSecure"
 import { useContext } from "react";
 import { authContext } from "../authentication/AuthProvider";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 
 
@@ -45,7 +46,7 @@ export default function SelectedClasses(){
                         <h1>{data.price}</h1>
                         <div className="card-actions justify-end">
                         <button className="btn btn-sm" onClick={()=> deleteSelected(data._id)}>Delete</button>
-                        <button className="btn btn-sm">Buy Now</button>
+                        <Link to={'/dashboard/student/payment'} state={data} className="btn btn-sm">Buy Now</Link>
 
                         </div>
                     </div>
