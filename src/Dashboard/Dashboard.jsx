@@ -63,8 +63,8 @@ export default function Dashboard(){
 
                     {!isLoading&& data?.data?.role == 'instructor' &&
                         <div className="space-y-5 mt-5 text-center flex flex-col" id="dashboard">
-                            <NavLink to={'selectedclasses'} className="">Add Class</NavLink>
-                            <NavLink to={'enrolledclasses'} className="">My Classes</NavLink>
+                            <NavLink to={'addclass'} className="">Add Class</NavLink>
+                            <NavLink to={'myclasses'} className="">My Classes</NavLink>
                         </div>
                     }
 

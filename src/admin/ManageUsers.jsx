@@ -7,7 +7,7 @@ import useAxiosSecure from "../useAxiosSecure"
 export default function ManageUsers(){
 
     const [axiosSecure] = useAxiosSecure();
-    const {data} = useQuery({
+    const {data,refetch} = useQuery({
         queryKey:['users'],
         queryFn:()=>{
             const data = axiosSecure.get('/allusers')
@@ -18,12 +18,11 @@ export default function ManageUsers(){
 
    
 
-    const makeInstructor = () => {
+    const makeInstructor = (value) => {
 
-
-        fetch(`${axiosSecure.defaults.baseURL}admin/makeinstructor` , {
+        fetch(`${axiosSecure.defaults.baseURL}admin/makeinstructor/${value}` , {
             method : 'PATCH'
-        }).then(data => console.log(data))
+        }).then(data => refetch())
 
     }
    
@@ -44,8 +43,8 @@ export default function ManageUsers(){
                     <h1>{data.name}</h1>
                     <h1>{data.role}</h1>
                     <div className="flex gap-2">
-                        <button className="btn btn-sm" onClick={makeInstructor}>Instructor</button>
-                        <button className="btn btn-sm">Instructor</button>
+                        <button className="btn btn-sm" onClick={()=>makeInstructor(data._id)}>Instructor</button>
+                        <button className="btn btn-sm">admin</button>
                     </div>
 
 

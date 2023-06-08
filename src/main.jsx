@@ -29,6 +29,8 @@ import {
 } from 'react-query'
 import ManageUsers from './admin/ManageUsers.jsx'
 import ManageClasses from './admin/ManageClasses.jsx'
+import AddClasses from './instructor/AddClass.jsx'
+import MyClasses from './instructor/MyClasses.jsx'
 
 const queryClient = new QueryClient()
 
@@ -72,6 +74,14 @@ const router = createBrowserRouter([
           {
             path : '/dashboard/manageclasses',
             element: <ManageClasses/>
+          },
+          {
+            path : '/dashboard/addclass',
+            element: <AddClasses/>
+          },
+          {
+            path : '/dashboard/myclasses',
+            element: <MyClasses/>
           }
         ]
       },
