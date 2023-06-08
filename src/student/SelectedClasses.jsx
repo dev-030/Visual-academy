@@ -2,6 +2,7 @@ import { useQuery } from "react-query";
 import useAxiosSecure from "../useAxiosSecure"
 import { useContext } from "react";
 import { authContext } from "../authentication/AuthProvider";
+import axios from "axios";
 
 
 
@@ -13,13 +14,21 @@ export default function SelectedClasses(){
     const {user} = useContext(authContext);
 
     
-    const {data} = useQuery({
+    const {data,refetch} = useQuery({
         queryKey : ['selectedClasses'] ,
         queryFn : () => {
            const value = axiosSecure.get(`selectedclasses/${user.email}`)
            return value;
         }
     })
+
+    const deleteSelected = (data) => {
+        axios.post(`${axiosSecure.defaults.baseURL}student/deleteselected/${data}&${user.email}`).then((data)=>{
+            if(data.data.modifiedCount == 1){
+                refetch()
+            }
+        })
+    }
     
 
     return(
@@ -35,7 +44,7 @@ export default function SelectedClasses(){
                         <h1>{data.instructor}</h1>
                         <h1>{data.price}</h1>
                         <div className="card-actions justify-end">
-                        <button className="btn btn-sm">Delete</button>
+                        <button className="btn btn-sm" onClick={()=> deleteSelected(data._id)}>Delete</button>
                         <button className="btn btn-sm">Buy Now</button>
 
                         </div>
