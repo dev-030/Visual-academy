@@ -13,7 +13,7 @@ export default function Login(){
 
     const login = (event) => {
       event.preventDefault();
-      userLogin(event.target.email.value,event.target.password.value).then(data => console.log(data))
+      userLogin(event.target.email.value,event.target.password.value)
     }
 
 

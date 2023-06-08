@@ -1,5 +1,7 @@
 import { useQuery } from "react-query";
 import useAxiosSecure from "../useAxiosSecure";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 
 
@@ -8,7 +10,7 @@ import useAxiosSecure from "../useAxiosSecure";
 export default function ManageClasses(){
 
     const [axiosSecure] = useAxiosSecure();
-    const { data } = useQuery({
+    const { data ,refetch} = useQuery({
         queryKey : ['manageClasse'] ,
         queryFn : () => {
             const value = axiosSecure('admin/allclasses')
@@ -16,14 +18,43 @@ export default function ManageClasses(){
         }
     })
 
-    const approve = () => {
+    const chosen = (data,selection) => {
 
+        if(selection == 'denied') {
+            Swal.fire({
+                title: 'Feedback',
+                input:'textarea',
+                showCancelButton: true,
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Deny',
+                preConfirm: (feedback) => {
+                    axios.post(`${axiosSecure.defaults.baseURL}admin/classchoose/${data}&${selection}`,{feedback}).then(() => {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Denied',
+                            showConfirmButton: false,
+                            timer: 1000
+                        })
+                        refetch()
+                    }) 
+                }
+            })
+        }else{
+            axios.post(`${axiosSecure.defaults.baseURL}admin/classchoose/${data}&${selection}`).then(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Approved',
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+                refetch()
+            }) 
+            refetch()
+        }
     }
 
 
-    const denyClass = () => {
-        
-    }
+   
 
 
     return(
@@ -41,12 +72,14 @@ export default function ManageClasses(){
 
             <h2 className="card-title">{data.availableSeats}</h2>
             <h2 className="card-title">{data.price}</h2>
+            <h2 className="card-title">{data.status}</h2>
+
 
 
             <div className="card-actions justify-end mt-5">
-            <button className="btn btn-sm">Approve</button>
+            <button className="btn btn-sm" onClick={()=> chosen(data._id,'approved')}>Approve</button>
 
-            <button className="btn btn-sm">Deny</button>
+            <button className="btn btn-sm" onClick={()=> chosen(data._id,'denied')}>Deny</button>
             </div>
         </div>
             

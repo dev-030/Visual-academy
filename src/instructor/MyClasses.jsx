@@ -2,6 +2,7 @@ import { useContext } from "react"
 import { authContext } from "../authentication/AuthProvider"
 import useAxiosSecure from "../useAxiosSecure";
 import { useQuery } from "react-query";
+import axios from "axios";
 
 
 
@@ -18,6 +19,12 @@ export default function MyClasses(){
             return value;
         }
     })
+
+    const updateClass = (data) => {
+
+        axios.patch(`${axiosSecure.defaults.baseURL}instructor/updateclass`)
+        // document.getElementById(`${data._id}`).click();
+    }
 
 
 
@@ -39,11 +46,27 @@ export default function MyClasses(){
                     <h1>{data.availabeSeats}</h1>
                     <h1>{data.price}</h1>
                     <h1>{data.status}</h1>
-                    
+                    <h1>{data?.feedback}</h1>
+                    <button className="btn btn-sm" onClick={()=>document.getElementById(data._id).click()}>Update</button>
 
+                    <input type="checkbox" id={data._id} className="modal-toggle" />
+                    <div className="modal">
+                    <div className="modal-box">
+                        <h3 className="font-bold text-lg">{data._id}</h3>
+                        <p className="py-4">This modal works with a hidden checkbox!</p>
+                        <div className="modal-action">
+                        <label htmlFor={data._id} className="btn">Close!</label>
+                        <button className="btn" onClick={()=>updateClass(data._id)}>Update</button>
+
+                        </div>
+                    </div>
+                    </div>
 
                 </div>)
             }
+
+            
+           
 
            
         </div>
