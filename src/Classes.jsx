@@ -15,6 +15,9 @@ export default function Classes () {
         }
     })
 
+    const select = (data) => {
+        console.log(data)
+    }
 
     return(
         <div>
@@ -35,7 +38,7 @@ export default function Classes () {
 
             <p>If a dog chews shoes whose shoes does he choose?</p>
             <div className="card-actions justify-end">
-            <button className="btn btn-primary">Buy Now</button>
+            <button className="btn btn-primary" onClick={()=>select(data._id)}>Select</button>
             </div>
         </div>
             

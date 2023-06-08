@@ -6,6 +6,7 @@ import axios from "axios";
 
 
 
+import { useForm } from "react-hook-form";
 
 
 
@@ -19,6 +20,13 @@ export default function MyClasses(){
             return value;
         }
     })
+
+
+    const { register, handleSubmit, formState: { errors } } = useForm();
+  const onSubmit = data => console.log(data);
+
+  // watch input value by passing the name of it
+
 
     const updateClass = (data) => {
 
@@ -51,15 +59,20 @@ export default function MyClasses(){
 
                     <input type="checkbox" id={data._id} className="modal-toggle" />
                     <div className="modal">
-                    <div className="modal-box">
-                        <h3 className="font-bold text-lg">{data._id}</h3>
-                        <p className="py-4">This modal works with a hidden checkbox!</p>
-                        <div className="modal-action">
-                        <label htmlFor={data._id} className="btn">Close!</label>
-                        <button className="btn" onClick={()=>updateClass(data._id)}>Update</button>
 
+                    <form className="modal-box" onSubmit={handleSubmit(onSubmit)}>
+
+                        <h3 className="font-bold text-lg">{data._id}</h3>
+
+                        <input {...register("example")} placeholder="Type here" defaultValue={data._id} className="input input-bordered w-full max-w-xs" />
+
+                        <button className="btn" type="submit">Update</button>
+
+                        <div className="modal-action">
+                            <label htmlFor={data._id} className="btn">Close!</label>
                         </div>
-                    </div>
+
+                    </form>
                     </div>
 
                 </div>)
