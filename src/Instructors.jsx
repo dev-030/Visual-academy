@@ -9,7 +9,7 @@ export default function Instructors(){
     const { data } = useQuery({
         queryKey : ['allInstructors'],
         queryFn : () => {
-            const value = axiosSecure('/instructors')
+            const value = axiosSecure.get('/instructors')
             return value;
         }
     })

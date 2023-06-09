@@ -1,6 +1,5 @@
 import { useQuery } from "react-query";
 import useAxiosSecure from "./useAxiosSecure"
-import axios from "axios";
 import { useContext } from "react";
 import { authContext } from "./authentication/AuthProvider";
 
@@ -22,7 +21,7 @@ export default function Classes () {
     const {user} = useContext(authContext);
 
     const select = (data) => {
-        axios.post(`${axiosSecure.defaults.baseURL}student/select/${user.email}&${data}`)
+        axiosSecure.post(`student/select/${user.email}&${data}`)
     }
 
     return(
@@ -39,7 +38,7 @@ export default function Classes () {
                             <h2 className="card-title">Available Seats : {data.availableSeats}</h2>
                             <h2 className="card-title">Price : {data.price}</h2>
                             <div className="card-actions justify-end">
-                                <button className="btn btn-primary" onClick={()=>select(data._id)}>Select</button>
+                                <button className="btn btn-primary" disabled={data.availableSeats<=0? true : false} onClick={()=>select(data._id)}>Select</button>
                             </div>
                         </div>
                     

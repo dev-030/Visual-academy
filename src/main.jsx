@@ -13,7 +13,6 @@ import Login from './Login.jsx'
 import Register from './Register.jsx'
 import Instructors from './Instructors.jsx'
 import Classes from './Classes.jsx'
-import StudentDashboard from './Dashboard/StudentDashboard.jsx'
 import AuthProvider from './authentication/AuthProvider.jsx'
 import { Scrollbars } from 'rc-scrollbars';
 import PrivateRoute from './authentication/PrivateRoute.jsx'
