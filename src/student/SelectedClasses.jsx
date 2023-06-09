@@ -32,12 +32,15 @@ export default function SelectedClasses(){
             }
         })
         
-    }
-    
+    }    
 
     return(
         <div>
             <div className="flex flex-wrap gap-2">
+
+            { !isLoading && !data && 
+                <h1>You have no selected classes</h1>
+            }
 
             { !isLoading && data?.data.length==0 && 
                 <h1>You have no selected classes</h1>
