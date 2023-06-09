@@ -33,7 +33,7 @@ export default function AddClasses(){
                 data.instructor = user.email;
                 data.ininstructorName = user?.displayName;
 
-                axios.post(`${axiosSecure.defaults.baseURL}instructor/addclass` , data).then(data =>{
+                axiosSecure.post('instructor/addclass' , data).then(() =>{
                     Swal.fire(
                         'Add Request sent',
                         '',

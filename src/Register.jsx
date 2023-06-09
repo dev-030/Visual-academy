@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { authContext } from "./authentication/AuthProvider"
 
 
@@ -10,6 +10,8 @@ import { updateProfile } from "firebase/auth";
 import useAxiosSecure from "./useAxiosSecure";
 
 
+
+import {AiFillEye} from 'react-icons/ai'
 
 
 
@@ -55,18 +57,10 @@ export default function Register(){
 
     return(
         <div>
-
-
-
-
-
-
-
           <div className="hero min-h-screen bg-base-200">
             <div className="hero-content flex-col ">
               <div className="text-center lg:text-left">
                 <h1 className="text-5xl font-bold">Register now!</h1>
-                
               </div>
               <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                 <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
@@ -78,33 +72,47 @@ export default function Register(){
 
                     {/* { pattern : /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{6,}$/ } */}
 
-                    <div className="flex items-center">
-                      <input {...register("password" , {required: true})} placeholder="Password" className="input input-bordered w-full max-w-xs"/>
+                    <div className="flex items-center relative">
+
+
+                      <input id="password" type='password' {...register("password" , {required: true})} placeholder="Password" className="input input-bordered w-full max-w-xs"/>
+                      <AiFillEye size={30} className="absolute right-6 cursor-pointer" onClick={()=>{
+                        if(document.getElementById('password').type == 'password'){
+                          document.getElementById('password').type = 'text'
+                        }else{
+                          document.getElementById('password').type = 'password'
+                        }
+                      }}/>
+
+
                       <div className="tooltip tooltip-right" data-tip="Must Contain a number string">
                         <AiOutlineInfoCircle size={20} />
                       </div>
                     </div>
 
 
+                    <div className="flex items-center relative">
+                    <input id="password2" {...register("confirm_password", { required: true ,
+                      validate: (value) => value === watch("password") || "Passwords do not match"
+                    })} placeholder="Confirm Password" className="input input-bordered w-full max-w-xs"/>
+                    <AiFillEye size={30} className="absolute right-6 cursor-pointer" onClick={()=>{
+                        if(document.getElementById('password2').type == 'password'){
+                          document.getElementById('password2').type = 'text'
+                        }else{
+                          document.getElementById('password2').type = 'password'
+                        }
+                      }}/>
+                    </div>
 
-                    <input {...register("confirm_password", { required: true ,
-                    
-                        validate: (value) => value === watch("password") || "Passwords do not match"
-                      
-                      })} placeholder="Confirm Password" className="input input-bordered w-full max-w-xs"/>
-
-
-                      <p className="">
-                        {errors.confirm_password?.message}
-                      </p>
+                    <p className="">
+                      {errors.confirm_password?.message}
+                    </p>
 
                     <input  {...register("photo_url", { required: true })} type="text" placeholder="Photo Url" className="input input-bordered w-full max-w-xs" />
-
                   </div>
 
                   <Link to={'/login'} className="underline">Already have an account ?</Link>
 
-            
                   <div className="form-control mt-6">
                     <button className="btn btn-primary" type="submit">Login</button>
                   </div>
@@ -112,7 +120,6 @@ export default function Register(){
               </div>
             </div>
           </div>
-            
         </div>
     )
 }

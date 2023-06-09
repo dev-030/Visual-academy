@@ -1,6 +1,5 @@
 import { useQuery } from "react-query";
 import useAxiosSecure from "../useAxiosSecure";
-import axios from "axios";
 import Swal from "sweetalert2";
 
 
@@ -13,7 +12,7 @@ export default function ManageClasses(){
     const { data ,refetch} = useQuery({
         queryKey : ['manageClasse'] ,
         queryFn : () => {
-            const value = axiosSecure('admin/allclasses')
+            const value = axiosSecure.get('admin/allclasses')
             return value;
         }
     })
@@ -28,7 +27,7 @@ export default function ManageClasses(){
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Deny',
                 preConfirm: (feedback) => {
-                    axios.post(`${axiosSecure.defaults.baseURL}admin/classchoose/${data}&${selection}`,{feedback}).then(() => {
+                    axiosSecure.post(`admin/classchoose/${data}&${selection}`,{feedback}).then(() => {
                         Swal.fire({
                             icon: 'success',
                             title: 'Denied',
@@ -40,7 +39,7 @@ export default function ManageClasses(){
                 }
             })
         }else{
-            axios.post(`${axiosSecure.defaults.baseURL}admin/classchoose/${data}&${selection}`).then(() => {
+            axiosSecure.post(`admin/classchoose/${data}&${selection}`).then(() => {
                 Swal.fire({
                     icon: 'success',
                     title: 'Approved',

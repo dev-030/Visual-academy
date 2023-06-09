@@ -9,8 +9,6 @@ const axiosSecure = axios.create({
 });
 
 
-
-
 export default function useAxiosSecure(){
 
     axiosSecure.interceptors.request.use(function (config) {

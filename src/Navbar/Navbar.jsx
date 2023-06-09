@@ -1,4 +1,4 @@
-import { Link, NavLink, Outlet  } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate  } from "react-router-dom";
 import Footer from "../Footer";
 import { useContext, useEffect, useState } from "react";
 
@@ -9,19 +9,26 @@ import { authContext } from "../authentication/AuthProvider";
 
 export default function Navbar(){
 
-    const {user,loading,userLogout} = useContext(authContext);
+    const {user,loading,userLogout,roleData:data} = useContext(authContext);
+    const navigate = useNavigate()
 
     const [theme, setTheme] = useState('light');
     const toggleTheme = () => {
       setTheme(theme === 'dark' ? 'light' : 'dark');
     };
-    useEffect(() => {
-      document.querySelector('html').setAttribute('data-theme', theme);
-    }, [theme]);
 
     const logout = () => {
-        userLogout();
+        userLogout().then(()=>{
+            navigate('/')
+        })
     }
+
+ 
+
+    useEffect(() => {
+        document.querySelector('html').setAttribute('data-theme', theme);
+      }, [theme]);
+
 
     
 
@@ -58,8 +65,10 @@ export default function Navbar(){
                 <NavLink to={'/instructors'}>Instructors</NavLink>
                 <NavLink to={'/classes'}>Classes</NavLink>
 
-                {user && 
-                    <NavLink to={'/dashboard'}>Dashboard</NavLink>
+              
+
+                {user&& data &&
+                    <NavLink to={`/dashboard${ data?.data?.role === 'admin' ? '/manageclasses' : data?.data?.role === 'instructor' ? '/addclass' : '/student/selectedclasses'}`}>Dashboard</NavLink>
                 }
                 
 

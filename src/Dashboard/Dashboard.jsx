@@ -1,4 +1,4 @@
-import { Link, Outlet ,NavLink} from "react-router-dom";
+import { Link, Outlet ,NavLink, useNavigate} from "react-router-dom";
 
 
 import './dashboard.css'
@@ -9,11 +9,14 @@ import useAxiosSecure from "../useAxiosSecure";
 
 
 
+
 export default function Dashboard(){
 
     const {user ,loading} = useContext(authContext);
     const [axiosSecure] = useAxiosSecure();
     
+
+    const navigate = useNavigate();
 
 
     const {data,isLoading} = useQuery({
@@ -35,6 +38,9 @@ export default function Dashboard(){
         <div className="mb-20 mt-10  flex gap-10 p-20">
 
             <div className="w-[20vw] border bg-base-100 rounded-[20px] p-10">
+
+
+                
 
                 <div className="avatar flex justify-center">
                     <div className="w-36 rounded-full">
@@ -90,7 +96,12 @@ export default function Dashboard(){
             
 
             <div className="border rounded-[20px] p-10 w-full">
-                <Outlet/>
+            
+
+            
+
+
+            <Outlet/>
             </div>
 
         </div>

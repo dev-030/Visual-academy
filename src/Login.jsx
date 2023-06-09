@@ -2,19 +2,27 @@ import { useContext } from "react"
 import { authContext } from "./authentication/AuthProvider"
 import { Link } from "react-router-dom";
 
+import {FcGoogle} from 'react-icons/fc'
+import {AiFillEye} from 'react-icons/ai'
 
 
 
 export default function Login(){
 
 
-  const {userLogin} = useContext(authContext);
+  const {userLogin , googleLogin} = useContext(authContext);
 
 
     const login = (event) => {
       event.preventDefault();
       userLogin(event.target.email.value,event.target.password.value)
     }
+
+    const loginWithGoogle = () => {
+      googleLogin()
+    }
+
+   
 
 
 
@@ -38,10 +46,29 @@ export default function Login(){
           <input type="text" name="email" placeholder="email" className="input input-bordered" />
         </div>
         <div className="form-control">
+          <div className="relative">
+
           <label className="label">
             <span className="label-text">Password</span>
           </label>
-          <input type="text" name="password" placeholder="password" className="input input-bordered" />
+          <input type="password" id="password" name="password" placeholder="password" className="input input-bordered w-full" />
+          <AiFillEye size={30} className="absolute right-3 top-11 cursor-pointer" onClick={()=>{
+            if(document.getElementById('password').type == 'password'){
+              document.getElementById('password').type = 'text'
+            }else{
+              document.getElementById('password').type = 'password'
+            }
+          }}/>
+
+          </div>
+
+          <div className="flex flex-col w-full border-opacity-50">
+                    
+                    <div className="divider">OR</div>
+
+                    <FcGoogle size={30} className="cursor-pointer" onClick={()=> loginWithGoogle()}/> 
+                    
+                  </div>
           <Link to={'/register'} className="underline">Dont have an account ? </Link>
           <label className="label">
             <a href="#" className="label-text-alt link link-hover">Forgot password?</a>

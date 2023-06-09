@@ -5,6 +5,7 @@ import useAxiosSecure from "./useAxiosSecure"
 
 
 export default function Instructors(){
+    
     const [axiosSecure] = useAxiosSecure();
     const { data } = useQuery({
         queryKey : ['allInstructors'],
