@@ -12,6 +12,7 @@ import useAxiosSecure from "./useAxiosSecure";
 
 
 import {AiFillEye} from 'react-icons/ai'
+import axios from "axios";
 
 
 
@@ -39,7 +40,8 @@ export default function Register(){
         photoURL: data.photo_url
       })
 
-      axiosSecure.post('user' , {name:data.name , email:data.email , image:data.photo_url})
+      axios.post(`${axiosSecure.defaults.baseURL}user` , {name:data.name , email:data.email , image:data.photo_url} )
+
 
       navigate('/')
       

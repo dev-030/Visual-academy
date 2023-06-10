@@ -26,7 +26,6 @@ export default function MyClasses(){
     const updateClass = (event) => {
         event.preventDefault();
 
-        console.log(modalData._id)
 
         const updatedData = {
             className : event.target.className.value ,

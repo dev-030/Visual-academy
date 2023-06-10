@@ -17,7 +17,7 @@ export default function PaymentHistory (){
     const {data} = useQuery({
         queryKey : ['paymentHistory'],
         queryFn : () => {
-            const value = axiosSecure(`student/paymenthistory/${user.email}`)
+            const value = axiosSecure.get(`student/paymenthistory/${user.email}`)
             return value;
         }
     })

@@ -19,11 +19,9 @@ export default function ManageUsers(){
    
 
     const makeInstructor = (value) => {
-
-        fetch(`${axiosSecure.defaults.baseURL}admin/makeinstructor/${value}` , {
-            method : 'PATCH'
-        }).then(data => refetch())
-
+        axiosSecure.patch(`admin/makeinstructor/${value}`).then(()=>{
+            refetch()
+        })
     }
    
 

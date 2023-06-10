@@ -6,7 +6,7 @@ const auth = getAuth(app)
 
 
 const axiosSecure = axios.create({
-    baseURL : 'http://localhost:8080/'
+    baseURL : 'https://summer-camp-jy3vq3ac5q-nn.a.run.app/'
 });
 
 

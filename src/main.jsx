@@ -34,7 +34,6 @@ import PaymentHistory from './student/PaymentHistory.jsx'
 
 
 import CustomRoute from './authentication/CustomRoute.jsx'
-import useAxiosSecure from './useAxiosSecure.jsx'
 
 
 
@@ -103,10 +102,6 @@ const router = createBrowserRouter([
         path : '/login' ,
         element : <Login/>
       },
-      {
-        path : '/nendwndkwendwoiod' ,
-        element : <useAxiosSecure/>
-      }
     ]
   },
   {

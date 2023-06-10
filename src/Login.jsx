@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 
 import {FcGoogle} from 'react-icons/fc'
 import {AiFillEye} from 'react-icons/ai'
+import useAxiosSecure from "./useAxiosSecure";
+import axios from "axios";
 
 
 
@@ -11,18 +13,26 @@ export default function Login(){
 
 
   const {userLogin , googleLogin} = useContext(authContext);
+  const [axiosSecure] = useAxiosSecure();
+
 
 
     const login = (event) => {
       event.preventDefault();
-      userLogin(event.target.email.value,event.target.password.value).then((data)=> {
-        console.log(data) 
-      })
+      userLogin(event.target.email.value,event.target.password.value)
     }
 
     const loginWithGoogle = () => {
-      googleLogin()
+      googleLogin().then((data)=> {
+        axios.post(`${axiosSecure.defaults.baseURL}user` , {name:data?.user.displayName , email:data?.user.email , image:data?.user.photoURL} )
+        console.log('sent')
+        window.location.replace('/')
+      })
     }
+
+ 
+
+
 
    
 

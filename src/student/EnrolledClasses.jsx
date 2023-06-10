@@ -18,7 +18,7 @@ export default function Enrolledclasses(){
     const {data} = useQuery({
         queryKey : ['enrolledClasses'],
         queryFn : () => {
-            const value = axiosSecure(`student/enrolledclasses/${user.email}`)
+            const value = axiosSecure.get(`student/enrolledclasses/${user.email}`)
             return value;
         }
     })
