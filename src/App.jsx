@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import { authContext } from './authentication/AuthProvider'
 import useAxiosSecure from './useAxiosSecure';
 import { useQuery } from 'react-query';
+import axios from 'axios';
 
 
 
@@ -18,7 +19,7 @@ function App() {
   const { data: classData } = useQuery({
     queryKey : ['allClasses'] ,
     queryFn : async() => {
-      const value = await axiosSecure.get('/classes');
+      const value = axios.get(`${axiosSecure.defaults.baseURL}classes`);
       return value;
     }
   })
@@ -27,7 +28,7 @@ function App() {
   const { data: instructorData } = useQuery({
     queryKey : ['ins'],
     queryFn : async() => {
-      const value = await axiosSecure.get('/instructors')
+      const value = axios.get(`${axiosSecure.defaults.baseURL}instructors`)
       return value;
     }
   })
@@ -40,6 +41,7 @@ function App() {
 
   return (
     <>
+
 
 
 

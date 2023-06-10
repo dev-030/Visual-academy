@@ -10,7 +10,7 @@ export default function ManageUsers(){
     const {data,refetch} = useQuery({
         queryKey:['users'],
         queryFn:()=>{
-            const data = axiosSecure.get('/allusers')
+            const data = axiosSecure.get('admin/allusers')
             return data;
         }
     })

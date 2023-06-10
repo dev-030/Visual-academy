@@ -32,6 +32,12 @@ import AddClasses from './instructor/AddClass.jsx'
 import MyClasses from './instructor/MyClasses.jsx'
 import PaymentHistory from './student/PaymentHistory.jsx'
 
+
+import CustomRoute from './authentication/CustomRoute.jsx'
+import useAxiosSecure from './useAxiosSecure.jsx'
+
+
+
 const queryClient = new QueryClient()
 
 const router = createBrowserRouter([
@@ -57,35 +63,35 @@ const router = createBrowserRouter([
         children : [
           {
             path:'/dashboard/student/enrolledclasses',
-            element : <Enrolledclasses/>
+            element : <CustomRoute><Enrolledclasses/></CustomRoute>
           },
           {
             path : '/dashboard/student/selectedclasses',
-            element: <SelectedClasses/>
+            element: <CustomRoute><SelectedClasses/></CustomRoute>
           },
           {
             path : '/dashboard/student/payment',
-            element: <Payments/>
+            element: <CustomRoute><Payments/></CustomRoute>
           },
           {
-            path : '/dashboard/paymenthistory',
+            path : '/dashboard/student/paymenthistory',
             element: <PaymentHistory/>
           },
           {
-            path : '/dashboard/allusers',
-            element: <ManageUsers/>
+            path : '/dashboard/admin/allusers',
+            element: <CustomRoute><ManageUsers role={'admin'}/></CustomRoute>
           },
           {
-            path : '/dashboard/manageclasses',
-            element: <ManageClasses/>
+            path : '/dashboard/admin/manageclasses',
+            element: <CustomRoute><ManageClasses role={'admin'}/></CustomRoute>
           },
           {
-            path : '/dashboard/addclass',
-            element: <AddClasses/>
+            path : '/dashboard/instructor/addclass',
+            element: <CustomRoute><AddClasses role={'instructor'}/></CustomRoute>
           },
           {
-            path : '/dashboard/myclasses',
-            element: <MyClasses/>
+            path : '/dashboard/instructor/myclasses',
+            element: <CustomRoute><MyClasses role={'instructor'}/></CustomRoute>
           }
         ]
       },
@@ -96,6 +102,10 @@ const router = createBrowserRouter([
       {
         path : '/login' ,
         element : <Login/>
+      },
+      {
+        path : '/nendwndkwendwoiod' ,
+        element : <useAxiosSecure/>
       }
     ]
   },

@@ -4,18 +4,26 @@ import { useContext, useEffect, useState } from "react";
 
 import './navbar.css'
 import { authContext } from "../authentication/AuthProvider";
+import { useQuery } from "react-query";
 
 
 
 export default function Navbar(){
 
     const {user,loading,userLogout,roleData:data} = useContext(authContext);
+    
+
     const navigate = useNavigate()
 
     const [theme, setTheme] = useState('light');
     const toggleTheme = () => {
       setTheme(theme === 'dark' ? 'light' : 'dark');
     };
+
+    // console.log(loading)
+    
+ 
+    
 
     const logout = () => {
         userLogout().then(()=>{
@@ -67,8 +75,12 @@ export default function Navbar(){
 
               
 
-                {user&& data &&
+                {/* {user&& data &&
                     <NavLink to={`/dashboard${ data?.data?.role === 'admin' ? '/manageclasses' : data?.data?.role === 'instructor' ? '/addclass' : '/student/selectedclasses'}`}>Dashboard</NavLink>
+                } */}
+    
+                {user&& data &&
+                    <NavLink to={`/dashboard`}>Dashboard</NavLink>
                 }
                 
 

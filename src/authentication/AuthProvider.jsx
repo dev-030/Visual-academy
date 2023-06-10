@@ -36,15 +36,29 @@ export default function AuthProvider({children}){
     const [user,setUser] = useState(null);
     const [loading,setLoading] = useState(true)
     const [axiosSecure] = useAxiosSecure();
-    const [ roleData, setRoleData] = useState();
-
+    const [ roleData, setRoleData ] = useState();
 
 
     useEffect(()=> {
         const unsubscribe = onAuthStateChanged(auth , (user) => {
-            setUser(user)
-            setLoading(false)
-            axiosSecure.get(`/users/check/${user?.email}`).then(data => setRoleData(data))
+
+            setUser(user)   
+
+            if(user){
+                const value = async() => {
+                    await axiosSecure.get(`/dashboard/users/check/${user?.email}`).then(data => setRoleData(data))
+                    setLoading(false)
+                }
+                value()
+            }
+
+            if(!user){
+                setLoading(false)
+            }
+
+
+
+
 
             if(user){
                 axios.post(`${axiosSecure.defaults.baseURL}jwt` , {email:user.email}).then((data) => {

@@ -1,4 +1,4 @@
-import { Link, Outlet ,NavLink, useNavigate} from "react-router-dom";
+import { Outlet ,NavLink, useNavigate} from "react-router-dom";
 
 
 import './dashboard.css'
@@ -14,8 +14,6 @@ export default function Dashboard(){
 
     const {user ,loading} = useContext(authContext);
     const [axiosSecure] = useAxiosSecure();
-    
-
     const navigate = useNavigate();
 
 
@@ -23,15 +21,20 @@ export default function Dashboard(){
         queryKey:['val'],
         enabled:!loading,
         queryFn: ()=>{
-            const value = axiosSecure.get(`/users/check/${user?.email}`)
+            const value = axiosSecure.get(`/dashboard/users/check/${user?.email}`)
             return value;
         }
     })
 
 
-    
-
-   
+    const useless = useQuery({
+        queryKey : [ 'dashboardroute'] , 
+        queryFn : async() => {
+            await axiosSecure.get(`/dashboard/users/check/${user?.email}`).then(data => {
+                navigate(`/dashboard${ data?.data?.role === 'admin' ? '/admin/manageclasses' : data?.data?.role === 'instructor' ? '/instructor/addclass' : '/student/selectedclasses'}`)
+            })
+        }
+    })
 
     
     return(
@@ -66,16 +69,16 @@ export default function Dashboard(){
 
                     {!isLoading&& data?.data?.role == 'admin' &&
                         <div className="space-y-5 mt-5 text-center flex flex-col" id="dashboard">
-                            <NavLink to={'manageclasses'} className="">Manage Classes</NavLink>
-                            <NavLink to={'allusers'} className="">Manage Users</NavLink>
+                            <NavLink to={'admin/manageclasses'} className="">Manage Classes</NavLink>
+                            <NavLink to={'admin/allusers'} className="">Manage Users</NavLink>
                         </div>
                     }
-
+ 
 
                     {!isLoading&& data?.data?.role == 'instructor' &&
                         <div className="space-y-5 mt-5 text-center flex flex-col" id="dashboard">
-                            <NavLink to={'addclass'} className="">Add Class</NavLink>
-                            <NavLink to={'myclasses'} className="">My Classes</NavLink>
+                            <NavLink to={'instructor/addclass'} className="">Add Class</NavLink>
+                            <NavLink to={'instructor/myclasses'} className="">My Classes</NavLink>
                         </div>
                     }
 
@@ -84,7 +87,7 @@ export default function Dashboard(){
                         <div className="space-y-5 mt-5 text-center flex flex-col" id="dashboard">
                             <NavLink to={'student/selectedclasses'} className="">Selected Classes</NavLink>
                             <NavLink to={'student/enrolledclasses'} className="">Enrolled Classes</NavLink>
-                            <NavLink to={'paymenthistory'} className="">Payments</NavLink>
+                            <NavLink to={'student/paymenthistory'} className="">Payments</NavLink>
                         </div>
                     }
 

@@ -1,5 +1,6 @@
 import { useQuery } from "react-query";
 import useAxiosSecure from "./useAxiosSecure"
+import axios from "axios";
 
 
 
@@ -10,7 +11,7 @@ export default function Instructors(){
     const { data } = useQuery({
         queryKey : ['allInstructors'],
         queryFn : () => {
-            const value = axiosSecure.get('/instructors')
+            const value = axios.get(`${axiosSecure.defaults.baseURL}instructors`)
             return value;
         }
     })

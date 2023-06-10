@@ -15,7 +15,9 @@ export default function Login(){
 
     const login = (event) => {
       event.preventDefault();
-      userLogin(event.target.email.value,event.target.password.value)
+      userLogin(event.target.email.value,event.target.password.value).then((data)=> {
+        console.log(data) 
+      })
     }
 
     const loginWithGoogle = () => {
@@ -43,7 +45,7 @@ export default function Login(){
           <label className="label">
             <span className="label-text">Email</span>
           </label>
-          <input type="text" name="email" placeholder="email" className="input input-bordered" />
+          <input type="text" required name="email" placeholder="email" className="input input-bordered" />
         </div>
         <div className="form-control">
           <div className="relative">
@@ -51,7 +53,7 @@ export default function Login(){
           <label className="label">
             <span className="label-text">Password</span>
           </label>
-          <input type="password" id="password" name="password" placeholder="password" className="input input-bordered w-full" />
+          <input type="password" required id="password" name="password" placeholder="password" className="input input-bordered w-full" />
           <AiFillEye size={30} className="absolute right-3 top-11 cursor-pointer" onClick={()=>{
             if(document.getElementById('password').type == 'password'){
               document.getElementById('password').type = 'text'
