@@ -24,9 +24,10 @@ export default function Login(){
 
     const loginWithGoogle = () => {
       googleLogin().then((data)=> {
-        axios.post(`${axiosSecure.defaults.baseURL}user` , {name:data?.user.displayName , email:data?.user.email , image:data?.user.photoURL} )
-        console.log('sent')
-        window.location.replace('/')
+        axios.post(`${axiosSecure.defaults.baseURL}user` , {name:data?.user.displayName , email:data?.user.email , image:data?.user.photoURL} ).then((data) => {
+          console.log(data)
+          window.location.replace('/')
+        })
       })
     }
 
