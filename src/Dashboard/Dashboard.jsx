@@ -6,6 +6,12 @@ import { useContext } from "react";
 import { authContext } from "../authentication/AuthProvider";
 import { useQuery } from "react-query";
 import useAxiosSecure from "../useAxiosSecure";
+import { useEffect } from "react";
+
+import {MdOutlineClass} from 'react-icons/md'
+import {HiOutlineUsers,HiAcademicCap,HiClipboardList} from 'react-icons/hi'
+import {BsCheck2Square ,BsPencilSquare} from 'react-icons/bs'
+import {FaMoneyCheck} from 'react-icons/fa'
 
 
 
@@ -17,11 +23,19 @@ export default function Dashboard(){
     const navigate = useNavigate();
 
 
+    useEffect(()=>{
+    // navigate(`/dashboard${ roleData?.data?.role === 'admin' ? '/admin/manageclasses' : roleData?.data?.role === 'instructor' ? '/instructor/addclass' : '/student/selectedclasses'}`)
+
+
+    },[])
+
+
+
     const useless = useQuery({
         queryKey : [ 'dashboardroute'] , 
         queryFn : async() => {
             await axiosSecure.get(`/dashboard/users/check/${user?.email}`).then(data => {
-                // navigate(`/dashboard${ data?.data?.role === 'admin' ? '/admin/manageclasses' : data?.data?.role === 'instructor' ? '/instructor/addclass' : '/student/selectedclasses'}`)
+                
             })
         }
     })
@@ -53,31 +67,43 @@ export default function Dashboard(){
                     }
                 </h1>
 
-                <h1 className="text-bold text-md text-center">{roleData?.data.name}</h1>
+                <h1 className="text-bold text-md text-center font-semibold">Name : {roleData?.data.name}</h1>
 
 
 
                     {!loading&& roleData?.data?.role == 'admin' &&
-                        <div className="space-y-5 mt-5 text-center flex flex-col" id="dashboard">
-                            <NavLink to={'admin/manageclasses'} className="font-semibold p-2">Manage Classes</NavLink>
-                            <NavLink to={'admin/allusers'} className="font-semibold p-2">Manage Users</NavLink>
+                        <div className="mt-5 text-center flex flex-col" id="dashboard">
+                           
+                            <NavLink to={'admin/manageclasses'} className="font-semibold p-2 flex">
+                             <MdOutlineClass className="mt-[2px] mr-[3px]" size={20}/>   Manage Classes</NavLink>
+
+                            
+
+                            <NavLink to={'admin/allusers'} className="flex font-semibold p-2">
+                            <HiOutlineUsers className="mt-[2px] mr-[4px]" size={20}/>Manage Users
+                            </NavLink>
                         </div>
                     }
     
 
                     {!loading&& roleData?.data?.role == 'instructor' &&
-                        <div className="space-y-5 mt-5 text-center flex flex-col" id="dashboard">
-                            <NavLink to={'instructor/addclass'} className="font-semibold p-2">Add Class</NavLink>
-                            <NavLink to={'instructor/myclasses'} className="font-semibold p-2">My Classes</NavLink>
+                        <div className="mt-5 text-center flex flex-col" id="dashboard">
+                            <NavLink to={'instructor/addclass'} className="flex font-semibold p-2">
+                              <BsPencilSquare className="mt-[2px] mr-[4px] ml-[2px]" size={18}/>Add Class</NavLink>
+                            <NavLink to={'instructor/myclasses'} className="flex font-semibold p-2">
+                               <HiClipboardList className="mt-[2px] mr-[4px]" size={22}/> My Classes</NavLink>
                         </div>
                     }
 
 
                     {!loading&& roleData?.data?.role != 'admin' && roleData?.data?.role != 'instructor' &&
                         <div className=" mt-5 text-center flex flex-col" id="dashboard">
-                            <NavLink to={'student/selectedclasses'} className="font-semibold p-2">Selected Classes</NavLink>
-                            <NavLink to={'student/enrolledclasses'} className="font-semibold p-2">Enrolled Classes</NavLink>
-                            <NavLink to={'student/paymenthistory'} className="font-semibold p-2">Payments</NavLink>
+                            <NavLink to={'student/selectedclasses'} className="flex font-semibold p-2">
+                               <BsCheck2Square className="mt-[2px] mr-[6px]" size={20}/> Selected Classes</NavLink>
+                            <NavLink to={'student/enrolledclasses'} className="flex font-semibold p-2">
+                              <HiAcademicCap className="mt-[2px] mr-[4px]" size={22}/>  Enrolled Classes</NavLink>
+                            <NavLink to={'student/paymenthistory'} className="flex font-semibold p-2">
+                              <FaMoneyCheck className="mt-[2px] mr-[7px]" size={20}/>  Payments</NavLink>
                         </div>
                     }
 
@@ -88,7 +114,7 @@ export default function Dashboard(){
             </div>
             
 
-            <div className="border rounded-[20px] w-full">
+            <div className="border rounded-[20px] w-full p-3">
             
 
             

@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { authContext } from "./authentication/AuthProvider";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { HashLoader } from "react-spinners"; 
 
 
 
@@ -14,7 +15,7 @@ export default function Classes () {
     const { roleData } = useContext(authContext);
 
 
-    const { data } = useQuery({
+    const { data,isLoading} = useQuery({
         queryKey : ['allClasses'] ,
         queryFn : () => {
             const value = axios.get(`${axiosSecure.defaults.baseURL}classes`);
@@ -45,6 +46,8 @@ export default function Classes () {
 
     return(
         <div className="min-h-screen">
+            <HashLoader color="#36d7b7" loading={isLoading} size={70} className="mx-auto mt-44"/>  
+
             {/* <div className="flex gap-5 flex-wrap mt-32">
                 {
                     data?.data.map(data => 

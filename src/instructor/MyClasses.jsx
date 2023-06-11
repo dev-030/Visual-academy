@@ -2,11 +2,14 @@ import { useContext, useState } from "react"
 import { authContext } from "../authentication/AuthProvider"
 import useAxiosSecure from "../useAxiosSecure";
 import { useQuery } from "react-query";
+import { HashLoader } from "react-spinners";
 
 
 export default function MyClasses(){
     const {user}  = useContext(authContext);
     const [axiosSecure] = useAxiosSecure();
+
+    
     const {data,isLoading,refetch} = useQuery({
         queryKey : 'MyClasses' ,
         queryFn : () => {
@@ -50,8 +53,11 @@ export default function MyClasses(){
 
     return(
         <div>
+            
+            <HashLoader color="#36d7b7" loading={isLoading} size={70} className="mx-auto mt-44"/>  
 
-            <div className="overflow-x-auto">
+            {!isLoading && data &&
+                <div className="overflow-x-auto">
                 <table className="table">
                     <thead>
                     <tr className="text-base font-semibold ">
@@ -89,7 +95,9 @@ export default function MyClasses(){
                         }
                     </tbody>
                 </table>
-            </div>
+                </div>
+            }
+            
             
 
          

@@ -1,6 +1,7 @@
 import { useQuery } from "react-query";
 import useAxiosSecure from "./useAxiosSecure"
 import axios from "axios";
+import { HashLoader } from "react-spinners";
 
 
 
@@ -8,7 +9,7 @@ import axios from "axios";
 export default function Instructors(){
     
     const [axiosSecure] = useAxiosSecure();
-    const { data } = useQuery({
+    const { data ,isLoading } = useQuery({
         queryKey : ['allInstructors'],
         queryFn : () => {
             const value = axios.get(`${axiosSecure.defaults.baseURL}instructors`)
@@ -23,6 +24,9 @@ export default function Instructors(){
 
     return(
         <div className="min-h-screen">
+
+          <HashLoader color="#36d7b7" loading={isLoading} size={70} className="mx-auto mt-44"/>  
+
             {/* <div className="flex gap-5">
 
             {

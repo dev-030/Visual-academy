@@ -118,7 +118,7 @@ export default function Payments(){
 
     return(
         <div>
-            <BsArrowLeftCircle size={32} className='cursor-pointer' onClick={()=>navigate(-1)}/>
+            <BsArrowLeftCircle size={32} className='cursor-pointer m-5' onClick={()=>navigate(-1)}/>
             <div>
 
                 <Elements stripe={stripePromise} >

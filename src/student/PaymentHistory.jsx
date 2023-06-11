@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { authContext } from "../authentication/AuthProvider";
 import useAxiosSecure from "../useAxiosSecure";
 import { useQuery } from "react-query";
+import { HashLoader } from "react-spinners";
 
 
 
@@ -14,7 +15,7 @@ export default function PaymentHistory (){
     const [axiosSecure] = useAxiosSecure();
 
 
-    const {data} = useQuery({
+    const {data,isLoading} = useQuery({
         queryKey : ['paymentHistory'],
         queryFn : () => {
             const value = axiosSecure.get(`student/paymenthistory/${user.email}`)
@@ -27,9 +28,11 @@ export default function PaymentHistory (){
     return(
         <div>
 
+            <HashLoader color="#36d7b7" loading={isLoading} size={70} className="mx-auto mt-44"/>  
+
             <div className="overflow-x-auto">
 
-                {data?.data?.length == 0 &&
+                {!isLoading && data?.data?.length == 0 &&
                     <h1>You dont have any payments</h1>
                 }
 
@@ -55,7 +58,6 @@ export default function PaymentHistory (){
                                             <td>{res.classId}</td>
                                             <td>{res.userName}</td>
                                             <td>{res.userEmail}</td>
-
                                         </tr>
                                     )
                                 }
