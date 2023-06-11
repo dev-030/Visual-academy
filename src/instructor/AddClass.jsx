@@ -54,7 +54,7 @@ export default function AddClasses(){
     return(
         <div>
 
-            <h1 className="font-bold text-2xl text-center mb-10">Add New Class</h1>
+            <h1 className="font-bold text-2xl text-center my-10">Add New Class</h1>
 
             <form className="grid" onSubmit={handleSubmit(onSubmit)}>
 

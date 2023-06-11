@@ -23,6 +23,11 @@ export default function MyClasses(){
         window.my_modal_6.click()
     }
 
+    const feedbackModal = (data) => {
+        setModalData(data)
+        window.my_modal_7.click()
+    }
+
     const updateClass = (event) => {
         event.preventDefault();
 
@@ -49,7 +54,7 @@ export default function MyClasses(){
             <div className="overflow-x-auto">
                 <table className="table">
                     <thead>
-                    <tr className="text-sm">
+                    <tr className="text-base font-semibold ">
                         <th></th>
                         <th>Class</th>
                         <th>Available Seats</th>
@@ -66,12 +71,19 @@ export default function MyClasses(){
                                     <td>{data.className}</td>
                                     <td className="pl-14">{data.availableSeats}</td>
                                     <td className="pl-6">{data.price}</td>
-                                    <td className={`badge mt-1 ${data.status === 'approved' ? 'badge-success' : data.status === 'pending' ? 'badge-warning ml-[5px]' : 'badge-error ml-[10px]'}`} id="status">{data.status}</td>
+                                    <td className={`badge mt-1 ${data.status === 'approved' ? 'badge-success ml-[2px]' : data.status === 'pending' ? 'badge-warning ml-[5px]' : 'badge-error ml-[9px]'}`} id="status">{data.status}</td>
                                     <td className="pl-10">{data?.enrolled}{data.status === 'approved' && !data.enrolled && !isLoading ? '0':'' }</td>
 
                                     {/* ---------  Implement Update functionality ---------- */}
 
-                                    <td className="btn btn-sm p-2 mt-[6px]" onClick={()=>showModal(data)}>Update</td>
+                                    {
+                                        (data.status=='denied')? 
+                                        <td className="btn btn-outline text-error hover:bg-[red] hover:border-[red] btn-sm p-2 mt-[6px]" onClick={()=>feedbackModal(data)}>Feed......</td>
+                                        :
+                                        <td className="btn btn-outline hover:bg-[#23445b] btn-sm p-2 mt-[6px]" onClick={()=>showModal(data)}>Update</td>
+
+                                    }
+
                                 </tr>
                             )
                         }
@@ -84,20 +96,43 @@ export default function MyClasses(){
 
 
             <div>
-
                 <input type="checkbox" id="my_modal_6" className="modal-toggle" />
                 <div className="modal">
-                <form className="modal-box" onSubmit={updateClass} id="myForm">
-                        <input type="text" id="className" defaultValue={modalData?.className} className="input input-bordered w-full max-w-xs" />
-                        <input type="number" id="seats" defaultValue={modalData?.availableSeats} className="input input-bordered w-full max-w-xs" />
-                        <input type="number" id="price" defaultValue={modalData?.price} className="input input-bordered w-full max-w-xs" />
+                <form className="bg-[#23445b] p-10 rounded-[10px] space-y-3" onSubmit={updateClass} id="myForm">
+                    <div className="flex items-center">
+                        <h1 className="pr-2 font-semibold text-white">Class : </h1>
+                        <input type="text" id="className" defaultValue={modalData?.className} className="input input-bordered font-semibold" />
+                    </div>
+                    <div className="flex items-center">
+                        <h1 className="pr-2 font-semibold text-white">Seats : </h1>
+                        <input type="number" id="seats" defaultValue={modalData?.availableSeats} className="input input-bordered font-semibold" />
+                    </div>
+                    <div className="flex items-center">
+                        <h1 className="pr-2 font-semibold text-white">Price : </h1>
+                        <input type="number" id="price" defaultValue={modalData?.price} className="input input-bordered font-semibold" />
+                    </div>
                     <div className="modal-action">
-                        <label htmlFor="my_modal_6" className="btn" onClick={()=>document.getElementById('myForm').reset()}>Close!</label>
-                        <button type="submit" className="btn">Update</button>
+                        <label htmlFor="my_modal_6" className="btn btn-sm hover:bg-[red] hover:border-[red] btn-outline text-white" onClick={()=>document.getElementById('myForm').reset()}>Close!</label>
+                        <button type="submit" className="btn btn-sm hover:border-[green] btn-outline hover:bg-[green] text-white">Update</button>
                     </div>
                 </form>
                 </div>
+            </div>
 
+            
+            <div>
+                <input type="checkbox" id="my_modal_7" className="modal-toggle" />
+                <div className="modal">
+                <form className="bg-[#23445b] p-4 rounded-[10px] space-y-3" onSubmit={updateClass} id="myForm2">
+                    <div className="min-w-[20rem] min-h-[10rem]">
+                        <h1 className="text-white text-center font-bold text-xl mb-2">FeedBack</h1>
+                        <h1 className="text-white">{modalData?.feedback}</h1>
+                    </div>
+                    <div className="modal-action">
+                        <label htmlFor="my_modal_7" className="btn btn-sm hover:bg-[red] hover:border-[red] btn-outline text-white">Close!</label>
+                    </div>
+                </form>
+                </div>
             </div>
 
         </div>

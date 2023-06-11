@@ -9,7 +9,7 @@ export default function Footer(){
 
 
 
-<footer className="footer px-10 pt-10 bg-base-300 text-base-content">
+<footer className="footer px-10 pt-10 bg-[#23445b] text-white">
           <div>
           <img src="/logo.png" className='h-12 max-[380px]:h-10 mx-auto'/>
           <a className="btn hover:bg-transparent btn-ghost normal-case text-3xl font-extrabold text-black" href="/">Toy<label style={{color:'white'}} className="cursor-pointer font-extrabold">Shop</label> </a>
@@ -39,7 +39,7 @@ export default function Footer(){
           </div>
         </footer>
 
-        <footer className="footer footer-center py-5 bg-base-300 text-base-content">
+        <footer className="footer footer-center py-5 bg-[#23445b] text-white">
           <div>
             <p>Copyright © 2023 -ToyShop . All rights reserved.</p>
           </div>

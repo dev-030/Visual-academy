@@ -5,6 +5,8 @@ import { useQuery } from 'react-query';
 import axios from 'axios';
 
 
+import './App.css'
+
 
 function App() {
   const [count, setCount] = useState(0)
@@ -35,7 +37,9 @@ function App() {
 
 
 
-  // console.log(instructorData?.data[0])
+
+  // console.log(classData?.data.slice(0, 6))
+
 
 
 
@@ -49,12 +53,14 @@ function App() {
      
 
       <div className="hero min-h-screen bg-[url('https://i.ibb.co/qybRmGh/Screenshot-2023-06-09-202621-1920x1147.png')]">
-  <div className="hero-content flex-col-reverse lg:flex-row-reverse">
-    <img src="https://i.ibb.co/KWHbwys/dswamin.png" className="max-w-[30rem]" />
-    <div>
-      <h1 className="text-5xl font-bold max-w-sm text-white">Teaching and Learning <br /> center</h1>
+  <div className="hero-content flex-col-reverse lg:flex-row-reverse lg:gap-36">
+    <img src="https://i.ibb.co/KWHbwys/dswamin.png" className=" w-[30rem]" />
+    <div className='text-center lg:text-left'>
+      <h1 className="text-6xl font-semibold lg:mt-[-15rem] max-w-sm mt-20 text-white font-Dosis">Teaching and Learning <br /> center.</h1>
+
+      <p className='text-white text-xl font-medium max-w-sm pt-5'>Further your professional developments with online courses and teaching materials.</p>
       
-      <button className="btn btn-primary">Get Started</button>
+      <button className="btn btn-outline text-white mt-5 mb-10 font-bold">Get Started</button>
     </div>
   </div>
 </div>
@@ -62,30 +68,30 @@ function App() {
 
 
 
-    <section className='my-20 bg-green-100'>
+    <section className='pb-10 bg-[#23445b]' id='fix'>
 
 
 
-      <h1 className='text-5xl text-center py-10'>Education and Learning</h1>
-      <p className='text-center text-xl pb-20 font-bold'>Learning is something we do almost every day</p>
+      <h1 className='text-5xl text-center py-10 text-white font-bold'>Education and Learning</h1>
+      <p className='text-center text-xl pb-20 font-bold text-white'>Learning is something we do almost every day</p>
 
 
-      <div className='flex gap-5 justify-center'>
+      <div className='flex gap-5 flex-wrap justify-center'>
 
         <div className='w-[15rem] h-[23rem] bg-blue-200 p-10'>
-          <div className='bg-yellow-200 text-center rounded-full w-20 h-20'><h1 className='text-4xl pt-5'>01</h1></div>
+          <div className=' bg-[#25797c] text-white text-center rounded-full w-20 h-20'><h1 className='text-4xl font-bold pt-5'>01</h1></div>
           <h1>Teaching</h1>
         </div>
         <div className='w-[15rem] h-[23rem] bg-blue-200 p-10'>
-          <div className='bg-yellow-200 text-center rounded-full w-20 h-20'><h1 className='text-4xl pt-5'>01</h1></div>
+          <div className='bg-[#25797c] text-white text-center rounded-full w-20 h-20'><h1 className='text-4xl font-bold pt-5'>02</h1></div>
           <h1>Teaching</h1>
         </div>
         <div className='w-[15rem] h-[23rem] bg-blue-200 p-10'>
-          <div className='bg-yellow-200 text-center rounded-full w-20 h-20'><h1 className='text-4xl pt-5'>01</h1></div>
+          <div className='bg-[#25797c] text-white text-center rounded-full w-20 h-20'><h1 className='text-4xl font-bold pt-5'>03</h1></div>
           <h1>Teaching</h1>
         </div>
         <div className='w-[15rem] h-[23rem] bg-blue-200 p-10'>
-          <div className='bg-yellow-200 text-center rounded-full w-20 h-20'><h1 className='text-4xl pt-5'>01</h1></div>
+          <div className='bg-[#25797c] text-white text-center rounded-full w-20 h-20'><h1 className='text-4xl font-bold pt-5'>04</h1></div>
           <h1>Teaching</h1>
         </div>
 
@@ -97,54 +103,46 @@ function App() {
 
      
     <section>
-      <h1 className='text-4xl font-bold text-center'>Browse Our Popular Classes</h1>
-      <div className="grid grid-cols-3 w-[fit-content] gap-6 flex-wrap mb-44 my-5 mx-auto relative">
+    <h1 className='text-4xl text-center font-bold text-[#4b5262] mt-32 mb-14'>Browse Our Popular Classes</h1>
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 gird-cols-1   w-[fit-content] gap-6 flex-wrap mb-44 my-5 mx-auto relative">
           {
-            classData?.data.map(data => 
+            classData?.data.slice(0, 6).map(data => 
             <div key={data._id} className="z-10 rounded-[20px] w-72 bg-base-100 shadow ring-gray-300 ring-1 p-3">
               <figure><img src={data?.classImage?.display_url} className='h-48 w-full rounded-[15px]'/></figure>
               <div className="">
-                <h2 className="">Class : {data.className}</h2>
-                <h2 className="">Instructor : {data.ininstructorName}</h2>
-                <h2 className="">Available Seats : {data.availableSeats}</h2>
-                <h2 className="">Price : {data.price}</h2>
-                <div className="card-actions justify-end">
-                  <button className="btn btn-primary" disabled={data.availableSeats<=0? true : false} onClick={()=>select(data._id)}>Select</button>
-                </div>
+                <h2 className="font-semibold pl-1  text-[#4b5262] pt-4">Class : {data.className}</h2>
+                <h2 className="font-semibold pl-1  text-[#4b5262]">Instructor : {data.ininstructorName}</h2>
+                <h2 className="font-semibold pl-1  text-[#4b5262]">Available Seats : {data.availableSeats}</h2>
+                <h2 className="font-semibold pl-1 pb-1 text-[#4b5262]">Price : {data.price}</h2>
+                
               </div>
             </div>
           )}
-          <div className='absolute z-0 bottom-[11rem] h-[25rem] right-[-95px] w-[1100px] rounded-[40px] bg-base-200'></div>
+          <div className='absolute z-0 md:w-[48rem] md:h-[45rem] md:top-[10rem] md:left-[-86px] lg:bottom-[11rem] lg:h-[25rem] lg:right-[-95px] lg:w-[1100px] rounded-[40px] bg-[#23445b]'></div>
+
       </div>
     </section>
 
 
 
-
     <section>
-
-      <h1 className='text-4xl font-bold text-center mb-10'>Our Popular Instructors</h1>
-
-      <div className="grid grid-cols-3 w-[fit-content] gap-6 flex-wrap mb-44 my-5 mx-auto relative">
-        {
-            instructorData?.data.map(data => 
+    <h1 className='text-4xl text-center font-bold text-[#4b5262] mt-32 mb-14'>Our Popular Instructors</h1>
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 gird-cols-1 w-[fit-content] gap-6 flex-wrap mb-44 my-5 mx-auto relative">
+          {
+            classData?.data.slice(0, 6).map(data => 
             <div key={data._id} className="z-10 rounded-[20px] w-72 bg-base-100 shadow ring-gray-300 ring-1 p-3">
-    
-                <figure><img src={data?.image} className='h-48 w-full rounded-[15px]'/></figure>
-                <div className="">
-                    <h2 className="">Class : {data.className}</h2>
-                    <h2 className="">Instructor : {data.ininstructorName}</h2>
-                    <h2 className="">Available Seats : {data.availableSeats}</h2>
-                    <h2 className="">Price : {data.price}</h2>
-                    <div className="card-actions justify-end">
-                        <button className="btn btn-primary" disabled={data.availableSeats<=0? true : false} onClick={()=>select(data._id)}>Select</button>
-                    </div>
-                </div>
-            
+              <figure><img src={data?.classImage?.display_url} className='h-48 w-full rounded-[15px]'/></figure>
+              <div className="">
+                <h2 className="font-semibold pl-1  text-[#4b5262] pt-4">Class : {data.className}</h2>
+                <h2 className="font-semibold pl-1  text-[#4b5262]">Instructor : {data.ininstructorName}</h2>
+                <h2 className="font-semibold pl-1  text-[#4b5262]">Available Seats : {data.availableSeats}</h2>
+                <h2 className="font-semibold pl-1 pb-1 text-[#4b5262]">Price : {data.price}</h2>
+                
+              </div>
             </div>
-        )}
+          )}
+         
 
-          
       </div>
     </section>
 

@@ -1,5 +1,5 @@
 #dashboard a.active {
-    background-color: bisque;
-    
-    border-radius: 20px;
+    background-color: #23445b;
+    color: white;
+    border-radius: 10px;
 }

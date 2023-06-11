@@ -31,14 +31,14 @@ export default function Dashboard(){
         queryKey : [ 'dashboardroute'] , 
         queryFn : async() => {
             await axiosSecure.get(`/dashboard/users/check/${user?.email}`).then(data => {
-                navigate(`/dashboard${ data?.data?.role === 'admin' ? '/admin/manageclasses' : data?.data?.role === 'instructor' ? '/instructor/addclass' : '/student/selectedclasses'}`)
+                // navigate(`/dashboard${ data?.data?.role === 'admin' ? '/admin/manageclasses' : data?.data?.role === 'instructor' ? '/instructor/addclass' : '/student/selectedclasses'}`)
             })
         }
     })
 
     
     return(
-        <div className="mb-20 mt-10  flex gap-10 p-20">
+        <div className="mb-20 mt-10 min-h-screen flex gap-10 p-20">
 
             <div className="w-[20vw] border bg-base-100 rounded-[20px] p-10">
 
@@ -69,25 +69,25 @@ export default function Dashboard(){
 
                     {!isLoading&& data?.data?.role == 'admin' &&
                         <div className="space-y-5 mt-5 text-center flex flex-col" id="dashboard">
-                            <NavLink to={'admin/manageclasses'} className="">Manage Classes</NavLink>
-                            <NavLink to={'admin/allusers'} className="">Manage Users</NavLink>
+                            <NavLink to={'admin/manageclasses'} className="font-semibold p-2">Manage Classes</NavLink>
+                            <NavLink to={'admin/allusers'} className="font-semibold p-2">Manage Users</NavLink>
                         </div>
                     }
  
 
                     {!isLoading&& data?.data?.role == 'instructor' &&
                         <div className="space-y-5 mt-5 text-center flex flex-col" id="dashboard">
-                            <NavLink to={'instructor/addclass'} className="">Add Class</NavLink>
-                            <NavLink to={'instructor/myclasses'} className="">My Classes</NavLink>
+                            <NavLink to={'instructor/addclass'} className="font-semibold p-2">Add Class</NavLink>
+                            <NavLink to={'instructor/myclasses'} className="font-semibold p-2">My Classes</NavLink>
                         </div>
                     }
 
 
                     {!isLoading&& data?.data?.role != 'admin' && data?.data?.role != 'instructor' &&
-                        <div className="space-y-5 mt-5 text-center flex flex-col" id="dashboard">
-                            <NavLink to={'student/selectedclasses'} className="">Selected Classes</NavLink>
-                            <NavLink to={'student/enrolledclasses'} className="">Enrolled Classes</NavLink>
-                            <NavLink to={'student/paymenthistory'} className="">Payments</NavLink>
+                        <div className=" mt-5 text-center flex flex-col" id="dashboard">
+                            <NavLink to={'student/selectedclasses'} className="font-semibold p-2">Selected Classes</NavLink>
+                            <NavLink to={'student/enrolledclasses'} className="font-semibold p-2">Enrolled Classes</NavLink>
+                            <NavLink to={'student/paymenthistory'} className="font-semibold p-2">Payments</NavLink>
                         </div>
                     }
 
@@ -98,7 +98,7 @@ export default function Dashboard(){
             </div>
             
 
-            <div className="border rounded-[20px] p-10 w-full">
+            <div className="border rounded-[20px] w-full">
             
 
             

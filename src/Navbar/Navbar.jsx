@@ -41,8 +41,8 @@ export default function Navbar(){
     
 
     return(
-       <div>
-        <div className="navbar ">
+       <div className="font-dosis">
+        <div className="navbar bg-[#23445b] text-white">
         <div className="navbar-start">
             <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -63,7 +63,7 @@ export default function Navbar(){
             <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
         </div>
         <div className="navbar-center hidden lg:flex">
-            <ul className="menu menu-horizontal px-1 flex gap-10 font-bold" id="navbar">
+            <ul className="menu menu-horizontal px-1 text-lg flex gap-10 font-bold" id="navbar">
                
                
                 <NavLink to={'/'}>Home</NavLink>
@@ -107,7 +107,7 @@ export default function Navbar(){
         <div className="dropdown dropdown-end">
 
         {!loading && !user && 
-            <Link to={'/login'} className="btn" >Sign In </Link>
+            <Link to={'/login'} className="btn btn-outline btn-md font-bold mr-4 text-white" >Sign In </Link>
           }
 
          
@@ -120,15 +120,10 @@ export default function Navbar(){
                 <img src={user.photoURL} />
                 </div>
             </label>
-            <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-            <li>
-            <a className="justify-between">
-                Profile
-                <span className="badge">New</span>
-            </a>
-            </li>
-            <li><a>Settings</a></li>
-            <li><a onClick={logout}>Logout</a></li>
+            <ul tabIndex={0} className="menu menu-sm dropdown-content bg-[#23445b] mt-3 p-22 rounded-box w-52">
+           
+           
+            <li><a onClick={logout} className="hover:bg-[#1a3344]">Logout</a></li>
         </ul>
         </div>
             }
