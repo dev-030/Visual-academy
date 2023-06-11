@@ -8,6 +8,7 @@ import {AiFillEye} from 'react-icons/ai'
 import {FaUser} from 'react-icons/fa'
 import {MdLock} from 'react-icons/md'
 import toast, { Toaster } from 'react-hot-toast';
+import { useForm } from "react-hook-form";
 
 
 
@@ -16,6 +17,7 @@ export default function Login(){
 
   const {userLogin , googleLogin} = useContext(authContext);
   const [axiosSecure] = useAxiosSecure();
+  const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
 
   const notify = (value) => toast.error(`${value}` , {
@@ -26,11 +28,9 @@ export default function Login(){
       background: '#23445b'
     }
   });
-
-
-  const login = (event) => {
-    event.preventDefault();
-    userLogin(event.target.email.value,event.target.password.value).then(()=>{
+  
+  const onSubmit = (data) => {
+    userLogin(data.email,data.password).then(()=>{
       navigate('/');
     }).catch((error)=>{
       if(error.message == 'Firebase: Error (auth/wrong-password).'){
@@ -50,11 +50,6 @@ export default function Login(){
     })
   }
 
-
-
-
-
-
   return(
     <div>
 
@@ -67,15 +62,15 @@ export default function Login(){
             <img src="./login.jpg" className="w-[90%]" />
           </div>
           <div className="card flex-shrink-0 w-full max-w-sm mr-12">
-            <form className="card-body" onSubmit={login}>
+            <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
               <h1 className="text-4xl text-center text-[#23445b] mb-16 font-bold">Welcome Back </h1>
               <div className=" flex items-center pb-3 border-b border-[#dadfe5]">
                 <FaUser className="text-[#8090a3]" fontWeight={'100px'} size={18}/>
-                <input type="email" required name="email" placeholder="Your email address" className="appearance-none bg-transparent border-none w-full text-gray-700 pl-7 font-semibold  leading-tight focus:outline-none" />
+                <input type="text" {...register("email", {required: true, pattern : /^[^\s@]+@[^\s@]+\.[^\s@]+$/})} placeholder="Your email address" className="appearance-none bg-transparent border-none w-full text-gray-700 pl-7 font-semibold  leading-tight focus:outline-none" />
               </div>
               <div className="mt-5 flex items-center pb-3 border-b border-[#dadfe5]">
                 <MdLock className="text-[#8090a3]" fontWeight={'100px'} size={23}/>
-                <input type="password" id="password" required name="password" placeholder="password" className="appearance-none bg-transparent border-none w-full text-gray-700 pl-7 font-semibold  leading-tight focus:outline-none" />
+                <input type="password" id="password" {...register("password", {required: true})} placeholder="password" className="appearance-none bg-transparent border-none w-full text-gray-700 pl-7 font-semibold  leading-tight focus:outline-none" />
                 <AiFillEye size={25} className="cursor-pointer text-[#8090a3]" onClick={()=>{
                   if(document.getElementById('password').type == 'password'){
                     document.getElementById('password').type = 'text'

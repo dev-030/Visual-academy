@@ -8,7 +8,10 @@ export default {
     extend: {
       fontFamily: {
         dosis: ['Dosis']
-      }
+      },
+      boxShadow: {
+        'red': '0 0 10px 2px rgba(255, 0, 0, 0.5)',
+      },
     },
   },
   plugins: [require("daisyui")],

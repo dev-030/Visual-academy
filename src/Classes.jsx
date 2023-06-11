@@ -68,7 +68,7 @@ export default function Classes () {
       <div className="grid lg:grid-cols-3 md:grid-cols-2 mt-20 gird-cols-1 w-[fit-content] gap-6 flex-wrap mb-44 my-5 mx-auto relative">
           {
             data?.data.map(data => 
-            <div key={data._id} className="z-10 rounded-[20px] w-72 bg-base-100 shadow ring-gray-300 ring-1 p-3">
+            <div key={data._id}  className={`${data.availableSeats<=0? 'shadow-red' : ''} z-10 rounded-[20px] w-72 bg-base-100 shadow ring-gray-300 ring-1 p-3`}>
               <figure><img src={data?.classImage?.display_url} className='h-48 w-full rounded-[15px]'/></figure>
               <div className="">
                 <h2 className="font-semibold pl-1  pt-4">Class : {data.className}</h2>
