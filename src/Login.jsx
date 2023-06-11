@@ -90,7 +90,7 @@ export default function Login(){
               </div>
               <div className="flex flex-col w-full border-opacity-50">  
                 <div className="divider">OR</div>
-                <FcGoogle size={32} className="cursor-pointer" onClick={()=> loginWithGoogle()}/> 
+                <FcGoogle size={35} className="cursor-pointer" onClick={()=> loginWithGoogle()}/> 
               </div>
             </form>
           </div>
