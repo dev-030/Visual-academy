@@ -4,10 +4,6 @@ import { useContext } from "react";
 import { authContext } from "../authentication/AuthProvider";
 import { Link } from "react-router-dom";
 
-import LazyLoad from 'react-lazy-load';
-
-
-import ContentLoader, { Facebook } from 'react-content-loader'
 
 
 
@@ -27,8 +23,6 @@ export default function SelectedClasses(){
     })
 
 
-    const MyLoader = () => <ContentLoader />
-const MyFacebookLoader = () => <Facebook />
     
 
     const deleteSelected = (data) => {
@@ -52,7 +46,6 @@ const MyFacebookLoader = () => <Facebook />
                 <h1>You have no selected classes</h1>
             }
             
-            <ContentLoader id="skel"/>
 
             {/* { !isLoading &&
                 data?.data.map(data => <div key={data._id}>
@@ -72,14 +65,11 @@ const MyFacebookLoader = () => <Facebook />
                 </div>)
             } */}
 
-
         <div className="flex w-[fit-content] gap-2 flex-wrap mx-auto relative">
           {!isLoading &&
             data?.data.map(data => 
             <div key={data._id} className="z-10 rounded-[20px] w-72 bg-base-100 shadow ring-gray-300 ring-1 p-3">
-            <LazyLoad   onContentVisible={() => {document.getElementById('skel').classList.add('hidden')}}>
               <figure><img src={data?.classImage?.display_url} className='h-48 w-full rounded-[15px]'/></figure>
-            </LazyLoad>
               <div className="">
                 <h2 className="font-semibold pl-1  pt-4">Name : {data.className}</h2>
                 <h2 className="font-semibold pl-1 ">Instructor : {data.instructor}</h2>
@@ -90,10 +80,9 @@ const MyFacebookLoader = () => <Facebook />
                     <Link to={'/dashboard/student/payment'} state={data} className="btn btn-sm">Buy Now</Link>
                 </div>
               </div>
-              </div>
+            </div>
           )}
       </div>
-
 
 </div>
 
