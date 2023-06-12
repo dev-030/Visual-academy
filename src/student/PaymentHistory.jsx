@@ -33,7 +33,9 @@ export default function PaymentHistory (){
             <div className="overflow-x-auto">
 
                 {!isLoading && data?.data?.length == 0 &&
-                    <h1>You dont have any payments</h1>
+                    <div className="w-full flex justify-center">
+                        <h1 className="text-center text-xl font-semibold mt-20 bg-[#23445b] w-fit p-2 px-4 rounded-[15px] text-white ">You have no payment history</h1>
+                    </div>
                 }
 
                 {data?.data?.length >0 &&

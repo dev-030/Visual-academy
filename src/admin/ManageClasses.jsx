@@ -68,6 +68,12 @@ export default function ManageClasses(){
             <HashLoader color="#36d7b7" loading={isLoading} size={70} className="mx-auto mt-44"/>  
             <Toaster position="bottom-right"
             reverseOrder={false}/>
+
+            {!isLoading && data?.data?.length == 0 &&
+                <div className="w-full flex justify-center">
+                    <h1 className="text-center text-xl font-semibold mt-20 bg-[#23445b] w-fit p-2 px-4 rounded-[15px] text-white ">No classes yet.</h1>
+                </div>
+            }
         
             <div className="grid lg:grid-cols-3 md:grid-cols-2 gird-cols-1 w-[fit-content] gap-3 flex-wrap mx-auto relative">
             {

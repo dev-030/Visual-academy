@@ -18,7 +18,7 @@ export default function AddClasses(){
 
     const apiKey = '66d945b454fad2da099d17624012543e'
 
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit ,reset} = useForm();
 
     const onSubmit = data => {
 
@@ -38,10 +38,10 @@ export default function AddClasses(){
                         'Add Request sent',
                         '',
                         'success'
-                      )
+                    )
+                    reset();
                 })
             }
-            
         })
 
     }
@@ -75,7 +75,7 @@ export default function AddClasses(){
 
            
          
-                <button type="submit" className="btn mt-5 mx-auto ">Submit</button>
+                <button type="submit" className="btn btn-outline mt-5 mx-auto ">Submit</button>
           
 
 

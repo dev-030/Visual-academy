@@ -10,17 +10,17 @@ export default function Footer(){
 
 
 <footer className="footer px-10 pt-10 bg-[#23445b] text-white">
-          <div>
-          <img src="/logo.png" className='h-12 max-[380px]:h-10 mx-auto'/>
-          <a className="btn hover:bg-transparent btn-ghost normal-case text-3xl font-extrabold text-black" href="/">Toy<label style={{color:'white'}} className="cursor-pointer font-extrabold">Shop</label> </a>
-           <p>Get the toy you love.</p>
+          <div className="pt-5">
+          <a className="btn btn-ghost normal-case text-3xl pt-2" href="/">Visual Academy</a>
+
+           <p className="ml-9 font-semibold">Learn photography skills.</p>
           </div> 
           <div>
             <span className="footer-title">Services</span> 
-            <a className="link link-hover">Branding</a> 
-            <a className="link link-hover">Design</a> 
-            <a className="link link-hover">Marketing</a> 
-            <a className="link link-hover">Advertisement</a>
+            <a className="link link-hover">Photography Classes</a> 
+            <a className="link link-hover">Photo Editing</a> 
+            <a className="link link-hover">Photo Walks and Tours</a> 
+            <a className="link link-hover">Photography Resources</a>
           </div> 
           <div>
           <span className="footer-title">Contact</span> 
@@ -41,7 +41,7 @@ export default function Footer(){
 
         <footer className="footer footer-center py-5 bg-[#23445b] text-white">
           <div>
-            <p>Copyright © 2023 -ToyShop . All rights reserved.</p>
+            <p>Copyright © 2023 -Visual Academy . All rights reserved.</p>
           </div>
         </footer>
 

@@ -56,7 +56,9 @@ export default function SelectedClasses(){
             reverseOrder={false}/>
 
             {!isLoading && data?.data?.length==0 &&
-                <h1>You haven't selected any .</h1>
+            <div className="w-full flex justify-center">
+                <h1 className="text-center text-xl font-semibold mt-20 bg-[#23445b] w-fit p-2 px-4 rounded-[15px] text-white ">You no selected classes.</h1>
+            </div>
             }
 
             <HashLoader color="#36d7b7" loading={isLoading} size={70} className="mx-auto mt-44"/>  
@@ -73,8 +75,8 @@ export default function SelectedClasses(){
                             <h2 className="font-semibold pl-1 ">Available Seats : {data.availableSeats}</h2>
                             <h2 className="font-semibold pl-1 pb-1">Price : {data.price}</h2>
                             <div className="card-actions justify-end">
-                                <button className="btn btn-sm" onClick={()=> deleteSelected(data._id)}>Delete</button>
-                                <Link to={'/dashboard/student/payment'} state={data} className="btn btn-sm">Buy Now</Link>
+                                <button className="btn btn-sm btn-outline" onClick={()=> deleteSelected(data._id)}>Delete</button>
+                                <Link to={'/dashboard/student/payment'} state={data} className="btn btn-sm btn-outline">Buy Now</Link>
                             </div>
                         </div>
                     </div>

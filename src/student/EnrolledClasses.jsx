@@ -27,7 +27,9 @@ export default function Enrolledclasses(){
     <div>
 
       {!isLoading && data?.data?.length==0 &&
-        <h1>No data found.</h1>
+        <div className="w-full flex justify-center">
+          <h1 className="text-center text-xl font-semibold mt-20 bg-[#23445b] w-fit p-2 px-4 rounded-[15px] text-white ">You have no enrolled classes.</h1>
+        </div>
       }
 
 

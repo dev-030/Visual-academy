@@ -1,6 +1,8 @@
 
 Live site - https://summer-camp-project.netlify.app/
 
+Visual Academy
+
 - One stop place for car toys.
 - You can get your favourite car toy here.
 - Super car , sports car , truck this category toys are available.

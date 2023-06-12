@@ -16,14 +16,13 @@ export default function Classes () {
     const { roleData,user,loading } = useContext(authContext);
     const navigate = useNavigate();
 
-
+   
 
     const {data:selectedData,refetch:slectedRefetch,isLoading:selectedLoading} = useQuery({
         queryKey : ['sl'] ,
         queryFn : async() => {
-            const value = await axiosSecure.get(`student/selectedclasses/${user?.email}`)
-            
-            return value;
+        const value = await axiosSecure.get((!loading&& user )? (roleData?.data.role=='admin')?' ':(roleData?.data.role=='instructor')?' ':`student/selectedclasses/${user?.email}}`:'')
+        return value;
         },
         enabled : !loading
     })
@@ -32,8 +31,7 @@ export default function Classes () {
     const {data:enrolledData,isLoading:enrolledLoading} = useQuery({
         queryKey : ['en'],
         queryFn : async() => {
-        const value = await axiosSecure.get(`student/enrolledclasses/${user?.email}`)
-        
+        const value = await axiosSecure.get((!loading&& user )? (roleData?.data.role=='admin')?' ':(roleData?.data.role=='instructor')?' ':`student/enrolledclasses/${user?.email}`:'')
         return value;
         },
         enabled : !selectedLoading

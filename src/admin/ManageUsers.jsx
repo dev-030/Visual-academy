@@ -49,6 +49,12 @@ export default function ManageUsers(){
             <Toaster position="bottom-right"
             reverseOrder={false}/>
 
+            {!isLoading && data?.data?.length == 0 &&
+                <div className="w-full flex justify-center">
+                    <h1 className="text-center text-xl font-semibold mt-20 bg-[#23445b] w-fit p-2 px-4 rounded-[15px] text-white ">No users yet</h1>
+                </div>
+            }
+
             <HashLoader color="#36d7b7" loading={isLoading} size={70} className="mx-auto mt-44"/>  
 
             { !isLoading && data &&

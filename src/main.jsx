@@ -34,6 +34,7 @@ import PaymentHistory from './student/PaymentHistory.jsx'
 
 
 import CustomRoute from './authentication/CustomRoute.jsx'
+import LoginRoute from './authentication/LoginRoute.jsx'
 
 
 
@@ -96,11 +97,11 @@ const router = createBrowserRouter([
       },
       {
         path : '/register' ,
-        element : <Register/>
+        element : <LoginRoute><Register/></LoginRoute>
       },
       {
         path : '/login' ,
-        element : <Login/>
+        element : <LoginRoute><Login/></LoginRoute>
       },
     ]
   },
