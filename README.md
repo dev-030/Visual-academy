@@ -13,12 +13,16 @@
  ## Packages/Technologies Used
 
 - React.js
-- Node.js
-- Express.js
-- MongoDB
-- Axios
 - Tailwind CSS
+- Axios
+- Tanstack-Query
+- React-hook-form
+- Firebase
+- jsonwebtoken
 - Stripe API
+- react-hot-toast
+- react-spinners
+- react-icons
 
 ## Live Site
 Live site - [here](https://summer-camp-project.netlify.app/).
