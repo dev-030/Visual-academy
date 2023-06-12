@@ -13,53 +13,59 @@ import toast, { Toaster } from 'react-hot-toast';
 export default function Classes () {
 
     const [axiosSecure] = useAxiosSecure();
-    const { roleData } = useContext(authContext);
+    const { roleData,user,loading } = useContext(authContext);
+    const navigate = useNavigate();
 
 
-    const { data,isLoading} = useQuery({
-        queryKey : ['allClasses'] ,
-        queryFn : () => {
-            const value = axios.get(`${axiosSecure.defaults.baseURL}classes`);
+
+    const {data:selectedData,refetch:slectedRefetch,isLoading:selectedLoading} = useQuery({
+        queryKey : ['sl'] ,
+        queryFn : async() => {
+            const value = await axiosSecure.get(`student/selectedclasses/${user?.email}`)
+            
             return value;
-        }
-    })
-
-    const {data:selectedData} = useQuery({
-        queryKey : ['student/selectedClasses'] ,
-        queryFn : async() => {
-           const value = await axiosSecure.get(`student/selectedclasses/${user.email}`)
-           return value;
-        }
+        },
+        enabled : !loading
     })
 
 
-    const {data:enrolledData} = useQuery({
-        queryKey : ['enrolledClasses'],
+    const {data:enrolledData,isLoading:enrolledLoading} = useQuery({
+        queryKey : ['en'],
         queryFn : async() => {
-          const value = await axiosSecure.get(`student/enrolledclasses/${user.email}`)
-          return value;
-        }
+        const value = await axiosSecure.get(`student/enrolledclasses/${user?.email}`)
+        
+        return value;
+        },
+        enabled : !selectedLoading
+    })
+
+
+    const { data,isLoading,refetch} = useQuery({
+        queryKey : ['allClasses'] ,
+        queryFn : async() => {
+            const value = await axios.get(`${axiosSecure.defaults.baseURL}classes`);
+            
+            return value;
+        },
+        enabled : !enrolledLoading
     })
 
     
-    const navigate = useNavigate();
-
-    const {user} = useContext(authContext);
     const select = (data) => {
-
         if(user){
-            const myPromise = axiosSecure.post(`student/select/${user.email}&${data}`).then((data)=>{
+            const myPromise = axiosSecure.post(`student/select/${user?.email}&${data}`).then((data)=>{
                 if(data == undefined){
                     navigate('/login')
                 }
+                refetch()
+                slectedRefetch()
                 return data;
             })
             toast.promise(myPromise, {
                 loading: 'Updating...',
                 success: 'Selected successfully',
             },
-            {
-                style: {
+            {style: {
                     duration: 2000,
                     border: '1px solid #23445b',
                     padding: '10px',
@@ -70,7 +76,6 @@ export default function Classes () {
         }else{
             navigate('/login')
         }
-
     }
 
 
@@ -91,7 +96,13 @@ export default function Classes () {
                     <h2 className="font-semibold pl-1 ">Available Seats : {data.availableSeats}</h2>
                     <h2 className="font-semibold pl-1 pb-1">Price : {data.price}</h2>
                     <div className="card-actions justify-end">
-                        <button className="btn btn-sm btn-outline" disabled={data.availableSeats<=0 || roleData?.data.role=='instructor' || roleData?.data.role=='admin' ? true : false} onClick={()=>select(data._id)}>Select</button>
+                        <button className="btn btn-sm btn-outline" 
+                        disabled={data.availableSeats<=0 || roleData?.data.role=='instructor' || roleData?.data.role=='admin' ? true : false ||
+                        (selectedData?.data.some(obj => obj._id === data._id))? true : (enrolledData?.data.some(obj => obj._id === data._id))? true : false
+                        }onClick={()=>select(data._id)}>
+                        {(selectedData?.data.some(obj => obj._id === data._id))? 'Selected' : (enrolledData?.data.some(obj => obj._id === data._id))? 'Enrolled' : 'Select'
+                        }
+                        </button>
                     </div>
                     </div>
                 </div>
