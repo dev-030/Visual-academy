@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { authContext } from "../authentication/AuthProvider";
-import useAxiosSecure from "../useAxiosSecure";
 import { useQuery } from "react-query";
 import { HashLoader } from "react-spinners";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 
 
@@ -64,8 +64,7 @@ export default function PaymentHistory (){
                                     )
                                 }
                             </tbody>
-                        </table>
-                        
+                        </table>   
                     </div>
                 }
             </div>

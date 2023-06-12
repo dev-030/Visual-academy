@@ -1,9 +1,9 @@
 import { useContext } from "react"
-import { authContext } from "./authentication/AuthProvider"
+import { authContext } from "../authentication/AuthProvider"
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { updateProfile } from "firebase/auth";
-import useAxiosSecure from "./useAxiosSecure";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 import axios from "axios";
 
 import {FcGoogle} from 'react-icons/fc'
@@ -12,9 +12,6 @@ import {AiOutlineUser} from 'react-icons/ai'
 import {CiLock} from 'react-icons/ci'
 import {HiOutlineMail} from 'react-icons/hi'
 import {MdOutlineAddPhotoAlternate} from 'react-icons/md'
-
-
-
 
 
 export default function Register(){
@@ -112,9 +109,9 @@ export default function Register(){
                     document.getElementById('password2').type = 'password'
                   }
                 }}/>
-                  <p className=" top-[3px] right-[25px] text-[13px] text-[red] absolute">
-                  {errors.confirm_password?.message}
-                  </p>
+                <p className=" top-[3px] right-[25px] text-[13px] text-[red] absolute">
+                {errors.confirm_password?.message}
+                </p>
               </div>
 
               <div className=" flex items-center pb-3 border-b border-[#dadfe5]">

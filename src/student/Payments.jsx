@@ -4,11 +4,12 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import {CardElement, Elements, useElements, useStripe} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
-import useAxiosSecure from '../useAxiosSecure';
 import { useContext, useState } from 'react';
 import { useQuery } from 'react-query';
 import { authContext } from '../authentication/AuthProvider';
 import toast, { Toaster } from 'react-hot-toast';
+import useAxiosSecure from '../hooks/useAxiosSecure';
+
 
 
 const CheckoutForm = ({value}) => {

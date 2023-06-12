@@ -1,14 +1,8 @@
 import { createContext, useEffect, useState } from "react"
-
 import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth'
 import app from "./firebase.config";
 import axios from "axios";
-import useAxiosSecure from "../useAxiosSecure";
-
-
-
-
-
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 
 export const authContext = createContext(null);
@@ -38,12 +32,10 @@ export default function AuthProvider({children}){
     const [axiosSecure] = useAxiosSecure();
     const [ roleData, setRoleData ] = useState();
 
-
     useEffect(()=> {
         const unsubscribe = onAuthStateChanged(auth , (user) => {
             
             setUser(user)   
-
             if(user){
                 const value = async() => {
                     await axiosSecure.get(`/dashboard/users/check/${user?.email}`).then(data => setRoleData(data))
@@ -51,25 +43,17 @@ export default function AuthProvider({children}){
                 }
                 value()
             }
-
             if(!user){
                 setLoading(false)
             }
-
-
-
-
-
             if(user){
                 axios.post(`${axiosSecure.defaults.baseURL}jwt` , {email:user.email}).then((data) => {
                     localStorage.setItem('access-token',data.data.token)
                 })
             }
         })
-
         return() => {unsubscribe()}
     },[])
-
 
 
     const data = {
@@ -80,7 +64,6 @@ export default function AuthProvider({children}){
         googleLogin,
         userLogout,
         roleData
-
     }
     return( 
         <authContext.Provider value={data}>

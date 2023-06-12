@@ -6,11 +6,7 @@ import { Navigate } from "react-router-dom";
 
 
 
-
-
-
 export default function CustomRoute({children}) {
-
 
     const {user,roleData,loading} = useContext(authContext);
 

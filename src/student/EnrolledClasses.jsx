@@ -1,11 +1,8 @@
-
-
-
 import { useQuery } from "react-query";
-import useAxiosSecure from "../useAxiosSecure"
 import { useContext, useEffect, useState } from "react";
 import { authContext } from "../authentication/AuthProvider";
 import { HashLoader } from "react-spinners";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 
 export default function Enrolledclasses(){
@@ -31,16 +28,9 @@ export default function Enrolledclasses(){
           <h1 className="text-center text-xl font-semibold mt-20 bg-[#23445b] w-fit p-2 px-4 rounded-[15px] text-white ">You have no enrolled classes.</h1>
         </div>
       }
-
-
       
       <HashLoader color="#36d7b7" loading={isLoading} size={70} className="mx-auto mt-44"/>  
 
-      
-
-
-
-            
       <div className="grid lg:grid-cols-3 md:grid-cols-2 gird-cols-1 w-[fit-content] gap-3 flex-wrap mx-auto relative">
         {data &&
           data?.data.map(data => 

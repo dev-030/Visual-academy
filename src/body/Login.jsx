@@ -1,7 +1,7 @@
 import { useContext } from "react"
-import { authContext } from "./authentication/AuthProvider"
+import { authContext } from "../authentication/AuthProvider"
 import { Link, useNavigate } from "react-router-dom";
-import useAxiosSecure from "./useAxiosSecure";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 import axios from "axios";
 import {FcGoogle} from 'react-icons/fc'
 import {AiFillEye} from 'react-icons/ai'

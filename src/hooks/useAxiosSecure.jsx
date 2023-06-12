@@ -1,5 +1,5 @@
 import axios from "axios";
-import app from "./authentication/firebase.config";
+import app from "../authentication/firebase.config";
 
 import {getAuth,signOut}  from 'firebase/auth'
 const auth = getAuth(app)

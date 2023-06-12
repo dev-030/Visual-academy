@@ -1,8 +1,7 @@
 import { useQuery } from "react-query";
-import useAxiosSecure from "../useAxiosSecure"
 import toast, { Toaster } from 'react-hot-toast';
 import { HashLoader } from "react-spinners";
-
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 
 
@@ -17,8 +16,6 @@ export default function ManageUsers(){
         }
     })
 
-
-   
 
     const updateRole = (value,role) => {
         const myPromise = axiosSecure.patch('admin/updaterole',{value,role}).then((data)=>{
@@ -61,12 +58,12 @@ export default function ManageUsers(){
                 <div className="overflow-x-auto">
                     <table className="table">
                         <thead>
-                        <tr className="text-base">
-                            <th></th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                        </tr>
+                            <tr className="text-base">
+                                <th></th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                            </tr>
                         </thead>
                         <tbody className="font-semibold">
                             {

@@ -1,10 +1,8 @@
 import { useQuery } from "react-query";
-import useAxiosSecure from "../useAxiosSecure";
 import Swal from "sweetalert2";
 import toast, { Toaster } from 'react-hot-toast';
 import { HashLoader } from "react-spinners";
-
-
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 
 
@@ -20,7 +18,6 @@ export default function ManageClasses(){
     })
 
     const chosen = (data,selection) => {
-
         if(selection == 'denied') {
             Swal.fire({
                 title: 'Feedback',
@@ -60,11 +57,9 @@ export default function ManageClasses(){
     }
 
 
-   
-
-
     return(
         <div className="min-h-screen">
+
             <HashLoader color="#36d7b7" loading={isLoading} size={70} className="mx-auto mt-44"/>  
             <Toaster position="bottom-right"
             reverseOrder={false}/>
@@ -79,26 +74,25 @@ export default function ManageClasses(){
             {
                 data?.data.map(data => 
                 <div key={data._id} className="z-10 rounded-[20px] w-72 bg-base-100 shadow ring-gray-300 ring-1 p-3">
-                <figure><img src={data?.classImage?.display_url} className='h-48 w-full rounded-[15px]'/></figure>
-                <div className="">
-                    <h2 className="font-semibold pl-1  pt-4">Name : {data.className}</h2>
-                    <h2 className="font-semibold pl-1 ">Instructor : {data.instructor}</h2>
-                    <h2 className="font-semibold pl-1 ">Available Seats : {data.availableSeats}</h2>
-                    <h2 className="font-semibold pl-1 pb-1">Price : {data.price}</h2>
-                    <div className="flex items-center">
-                        <h2 className="font-semibold pl-1 pb-1 pr-1">Status : </h2>
-                        <h2 className={`badge font-semibold p-2  ${data.status === 'approved' ? 'badge-success' : data.status === 'pending' ? 'badge-warning' : 'badge-error'}`}>{data.status}</h2>
+                    <figure><img src={data?.classImage?.display_url} className='h-48 w-full rounded-[15px]'/></figure>
+                    <div className="">
+                        <h2 className="font-semibold pl-1  pt-4">Name : {data.className}</h2>
+                        <h2 className="font-semibold pl-1 ">Instructor : {data.instructor}</h2>
+                        <h2 className="font-semibold pl-1 ">Available Seats : {data.availableSeats}</h2>
+                        <h2 className="font-semibold pl-1 pb-1">Price : {data.price}</h2>
+                        <div className="flex items-center">
+                            <h2 className="font-semibold pl-1 pb-1 pr-1">Status : </h2>
+                            <h2 className={`badge font-semibold p-2  ${data.status === 'approved' ? 'badge-success' : data.status === 'pending' ? 'badge-warning' : 'badge-error'}`}>{data.status}</h2>
+                        </div>
+                        
+                        <div className="card-actions justify-end pt-3">
+                            <button className="btn btn-sm btn-outline" disabled={data.status=='approved'||data.status=='denied'? true : false} onClick={()=> chosen(data._id,'approved')}>Approve</button>
+                            <button className="btn btn-sm btn-outline" disabled={data.status=='approved'||data.status=='denied'? true : false} onClick={()=> chosen(data._id,'denied')}>Deny</button>
+                        </div>
                     </div>
-                    
-                    <div className="card-actions justify-end pt-3">
-                        <button className="btn btn-sm btn-outline" disabled={data.status=='approved'||data.status=='denied'? true : false} onClick={()=> chosen(data._id,'approved')}>Approve</button>
-                        <button className="btn btn-sm btn-outline" disabled={data.status=='approved'||data.status=='denied'? true : false} onClick={()=> chosen(data._id,'denied')}>Deny</button>
-                    </div>
-                </div>
                 </div>
             )}
             </div>
-        
         </div>
     )
 }

@@ -1,11 +1,10 @@
 import { useQuery } from "react-query";
-import useAxiosSecure from "../useAxiosSecure"
 import { useContext } from "react";
 import { authContext } from "../authentication/AuthProvider";
 import { Link } from "react-router-dom";
 import { HashLoader } from "react-spinners"; 
 import toast, { Toaster } from 'react-hot-toast';
-
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 
 

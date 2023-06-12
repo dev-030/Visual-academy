@@ -23,6 +23,7 @@
 - react-hot-toast
 - react-spinners
 - react-icons
+- react-awesome-reveal
 
 ## Live Site
 Live site - [here](https://summer-camp-project.netlify.app/).
