@@ -1,10 +1,24 @@
 
-Live site - https://summer-camp-project.netlify.app/
 
-Visual Academy
 
-- One stop place for car toys.
-- You can get your favourite car toy here.
-- Super car , sports car , truck this category toys are available.
-- Get newsletters and updates every time a new collection comes in.
-- Birthday gift's , surprises or a car that your child likes , You can get the toy from here.
+## Visual Academy
+
+- Explore a wide range of photography courses.
+- Learn from experienced expert instructors.
+- Wide variety of photography courses available. portrait, landscape, product photography, and more.
+- Develop your skills in various photography genres.
+- Connect with fellow photography enthusiasts.
+ 
+
+ ## Packages/Technologies Used
+
+- React.js
+- Node.js
+- Express.js
+- MongoDB
+- Axios
+- Tailwind CSS
+- Stripe API
+
+## Live Site
+Live site - [here](https://summer-camp-project.netlify.app/).
