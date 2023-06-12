@@ -5,6 +5,7 @@ import { authContext } from "./authentication/AuthProvider";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { HashLoader } from "react-spinners"; 
+import toast, { Toaster } from 'react-hot-toast';
 
 
 
@@ -23,20 +24,49 @@ export default function Classes () {
         }
     })
 
+    const {data:selectedData} = useQuery({
+        queryKey : ['student/selectedClasses'] ,
+        queryFn : async() => {
+           const value = await axiosSecure.get(`student/selectedclasses/${user.email}`)
+           return value;
+        }
+    })
+
+
+    const {data:enrolledData} = useQuery({
+        queryKey : ['enrolledClasses'],
+        queryFn : async() => {
+          const value = await axiosSecure.get(`student/enrolledclasses/${user.email}`)
+          return value;
+        }
+    })
+
     
     const navigate = useNavigate();
 
     const {user} = useContext(authContext);
-
-   
     const select = (data) => {
 
         if(user){
-            axiosSecure.post(`student/select/${user.email}&${data}`).then((data)=>{
+            const myPromise = axiosSecure.post(`student/select/${user.email}&${data}`).then((data)=>{
                 if(data == undefined){
                     navigate('/login')
                 }
-            })        
+                return data;
+            })
+            toast.promise(myPromise, {
+                loading: 'Updating...',
+                success: 'Selected successfully',
+            },
+            {
+                style: {
+                    duration: 2000,
+                    border: '1px solid #23445b',
+                    padding: '10px',
+                    color: '#ffff',
+                    background: '#23445b'
+                }
+            });        
         }else{
             navigate('/login')
         }
@@ -46,49 +76,27 @@ export default function Classes () {
 
     return(
         <div className="min-h-screen">
+            <Toaster position="bottom-right"
+            reverseOrder={false}/>
             <HashLoader color="#36d7b7" loading={isLoading} size={70} className="mx-auto mt-44"/>  
 
-            {/* <div className="flex gap-5 flex-wrap mt-32">
+            <div className="grid lg:grid-cols-3 md:grid-cols-2 mt-20 gird-cols-1 w-[fit-content] gap-6 flex-wrap mb-44 my-5 mx-auto relative">
                 {
-                    data?.data.map(data => 
-                    <div key={data._id} className="card w-96 bg-base-100 shadow-xl">
-            
-                        <figure><img src="https://i.ibb.co/LxV7GQ6/vector-users-icon.jpg"/></figure>
-                        <div className="card-body">
-                            <h2 className="card-title">Class : {data.className}</h2>
-                            <h2 className="card-title">Instructor : {data.ininstructorName}</h2>
-                            <h2 className="card-title">Available Seats : {data.availableSeats}</h2>
-                            <h2 className="card-title">Price : {data.price}</h2>
-                            <div className="card-actions justify-end">
-                                <button className="btn btn-primary" disabled={data.availableSeats<=0 || roleData?.data.role=='instructor' || roleData?.data.role=='admin' ? true : false} onClick={()=>select(data._id)}>Select</button>
-                            </div>
-                        </div>
-                    
+                data?.data.map(data => 
+                <div key={data._id}  className={`${data.availableSeats<=0? 'shadow-red' : ''} z-10 rounded-[20px] w-72 bg-base-100 shadow ring-gray-300 ring-1 p-3`}>
+                    <figure><img src={data?.classImage?.display_url} className='h-48 w-full rounded-[15px]'/></figure>
+                    <div className="">
+                    <h2 className="font-semibold pl-1  pt-4">Class : {data.className}</h2>
+                    <h2 className="font-semibold pl-1 ">Instructor : {data.ininstructorName}</h2>
+                    <h2 className="font-semibold pl-1 ">Available Seats : {data.availableSeats}</h2>
+                    <h2 className="font-semibold pl-1 pb-1">Price : {data.price}</h2>
+                    <div className="card-actions justify-end">
+                        <button className="btn btn-sm btn-outline" disabled={data.availableSeats<=0 || roleData?.data.role=='instructor' || roleData?.data.role=='admin' ? true : false} onClick={()=>select(data._id)}>Select</button>
                     </div>
-                )}
-            </div> */}
-
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 mt-20 gird-cols-1 w-[fit-content] gap-6 flex-wrap mb-44 my-5 mx-auto relative">
-          {
-            data?.data.map(data => 
-            <div key={data._id}  className={`${data.availableSeats<=0? 'shadow-red' : ''} z-10 rounded-[20px] w-72 bg-base-100 shadow ring-gray-300 ring-1 p-3`}>
-              <figure><img src={data?.classImage?.display_url} className='h-48 w-full rounded-[15px]'/></figure>
-              <div className="">
-                <h2 className="font-semibold pl-1  pt-4">Class : {data.className}</h2>
-                <h2 className="font-semibold pl-1 ">Instructor : {data.ininstructorName}</h2>
-                <h2 className="font-semibold pl-1 ">Available Seats : {data.availableSeats}</h2>
-                <h2 className="font-semibold pl-1 pb-1">Price : {data.price}</h2>
-                <div className="card-actions justify-end">
-                    <button className="btn btn-sm btn-outline" disabled={data.availableSeats<=0 || roleData?.data.role=='instructor' || roleData?.data.role=='admin' ? true : false} onClick={()=>select(data._id)}>Select</button>
+                    </div>
                 </div>
-              </div>
+                )}
             </div>
-          )}
-         
-
-      </div>
-  
-
 
         </div>
     )

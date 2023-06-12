@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { authContext } from "../authentication/AuthProvider";
 import { Link } from "react-router-dom";
 import { HashLoader } from "react-spinners"; 
+import toast, { Toaster } from 'react-hot-toast';
 
 
 
@@ -25,16 +26,34 @@ export default function SelectedClasses(){
 
 
     const deleteSelected = (data) => {
-        axiosSecure.post(`student/deleteselected/${data}&${user.email}`).then((data) => {
+        const myPromise = axiosSecure.post(`student/deleteselected/${data}&${user.email}`).then((data) => {
             if(data.data.modifiedCount == 1){
                 refetch()
+                return data ;
             }
         })
+
+        toast.promise(myPromise, {
+            loading: 'Updating...',
+            success: 'Class removed',
+        },
+        {
+            style: {
+                duration: 2000,
+                border: '1px solid #23445b',
+                padding: '10px',
+                color: '#ffff',
+                background: '#23445b'
+            }
+        });
     }   
 
 
     return(
         <div>
+
+            <Toaster position="bottom-right"
+            reverseOrder={false}/>
 
             {!isLoading && data?.data?.length==0 &&
                 <h1>You haven't selected any .</h1>

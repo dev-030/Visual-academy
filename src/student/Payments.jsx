@@ -8,6 +8,7 @@ import useAxiosSecure from '../useAxiosSecure';
 import { useContext, useState } from 'react';
 import { useQuery } from 'react-query';
 import { authContext } from '../authentication/AuthProvider';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const CheckoutForm = ({value}) => {
@@ -18,6 +19,8 @@ const CheckoutForm = ({value}) => {
     const [axiosSecure] = useAxiosSecure();
     const [paymentStatus, setPaymentStatus] = useState(null);
     const price = parseFloat(value.price) ;
+    const [btnstate , setBtnstate] = useState(true)
+    const navigate = useNavigate();
 
     const {data} = useQuery({
         queryKey : ['payment'],
@@ -29,13 +32,26 @@ const CheckoutForm = ({value}) => {
 
 
     const handleSubmit = async(event) => {
+
         event.preventDefault();
+
         if (!stripe || !elements) {
             return;
-        }
+        }        
+
+        setBtnstate(false)
+
+        const toastId = toast.loading('Processing...',{
+            style: {
+                duration: 2000,
+                border: '1px solid #23445b',
+                padding: '10px',
+                color: '#ffff',
+                background: '#23445b'
+            }
+        });
 
         const card = elements.getElement(CardElement);
-      
         if (card == null) {
         return;
         }
@@ -63,44 +79,84 @@ const CheckoutForm = ({value}) => {
             },
         );
 
+        if(paymentIntent == undefined){
+            toast.error('Card declined', {
+                id: toastId,
+                style: {
+                duration: 2000,
+                border: '1px solid #23445b',
+                padding: '10px',
+                color: '#ffff',
+                background: '#23445b'
+                }
+            });
+            setBtnstate(true)
+            return;
+        } 
+
         if(paymentIntent.status == 'succeeded'){
-        axiosSecure.post('student/paymentsuccess',{
-            userName : user?.displayName,
-            userEmail : user.email,
-            classId : value._id,
-            paymentId : paymentIntent.id
-        }).then(data => '')
+            await axiosSecure.post('student/paymentsuccess',{
+                userName : user?.displayName,
+                userEmail : user.email,
+                classId : value._id,
+                paymentId : paymentIntent.id
+            }).then(()=>{
+                toast.success('Payment Successful', {
+                    id: toastId,
+                    style: {
+                    duration: 2000,
+                    border: '1px solid #23445b',
+                    padding: '10px',
+                    color: '#ffff',
+                    background: '#23445b'
+                    }
+                });
+                setBtnstate(false)
+            })
         }
+    
         setPaymentStatus(paymentIntent.status)
+        setTimeout(() => {
+            navigate('/dashboard/student/enrolledclasses');
+          }, 2000);
     }
+
+
+ 
     return(
         <div className='mt-10'>
-            <form onSubmit={handleSubmit}>
-                        <CardElement
-                            options={{
-                            style: {
-                                base: {
-                                fontSize: '16px',
-                                color: '#424770',
-                                '::placeholder': {
-                                    color: '#aab7c4',
-                                },
-                                },
-                                invalid: {
-                                color: '#9e2146',
-                                },
-                            },
-                            }}
-                        />
-                <button type="submit" className='btn btn-sm mt-5' disabled={!stripe || !data?.data.clientSecret}>Pay</button>
-            </form>
+            <Toaster position="bottom-right"
+            reverseOrder={false}/>
 
-            {paymentStatus && 
-                <h1 className='text-green-300'>Payment Succeded !</h1>
-            }
+            <h1 className='text-4xl text-center font-semibold'>Put your card details</h1>
+
+            <div className='p-20'>
+                <form onSubmit={handleSubmit} className='p-10 '>
+                    <div className='border-b pb-2'>
+
+                            <CardElement
+                                options={{
+                                style: {
+                                    base: {
+                                    fontSize: '16px',
+                                    color: '#424770',
+                                    '::placeholder': {
+                                        color: '#aab7c4',
+                                    },
+                                    },
+                                    invalid: {
+                                    color: '#9e2146',
+                                    },
+                                },
+                                }}
+                            />
+                    </div>
+                            
+                    <button type="submit" className='btn btn-outline btn-sm mt-10' disabled={!stripe || !data?.data.clientSecret || !btnstate}>Pay</button>
+                </form>
+            </div>
         </div>
     )
-
 }
 
 
