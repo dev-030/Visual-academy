@@ -6,7 +6,7 @@ const auth = getAuth(app)
 
 
 const axiosSecure = axios.create({
-    baseURL : 'https://colorful-leotard-elk.cyclic.app/'
+    baseURL : 'https://visual-academy.onrender.com/'
 });
 
 
